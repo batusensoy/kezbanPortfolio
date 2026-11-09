@@ -1,19 +1,18 @@
 import React from 'react';
 import { Hero } from '@/components/home/Hero';
-import { FeaturedArtwork } from '@/components/home/FeaturedArtwork';
-import { AboutPreview } from '@/components/home/AboutPreview';
-import { ArtisticSpecialties } from '@/components/home/ArtisticSpecialties';
-import { ContactCTA } from '@/components/home/ContactCTA';
+import { LatelyInStudio } from '@/components/home/LatelyInStudio';
+import { ArtistGreeting } from '@/components/home/ArtistGreeting';
+import { WhatIPaint } from '@/components/home/WhatIPaint';
+import { ContactInvitation } from '@/components/home/ContactInvitation';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <FeaturedArtwork />
-      <AboutPreview />
-      <ArtisticSpecialties />
-      <ContactCTA />
+      <LatelyInStudio />
+      <ArtistGreeting />
+      <WhatIPaint />
+      <ContactInvitation />
     </>
   );
 }
-

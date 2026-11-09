@@ -104,14 +104,15 @@ export function ContactForm() {
   };
 
   return (
-    <div className="p-8 sm:p-12 rounded-3xl bg-canvas-elevated border border-[#E3DDD5] shadow-frame">
-      <div className="mb-8">
-        <h3 className="font-serif text-2xl sm:text-3xl font-normal text-charcoal">
-          Send a Direct Inquiry
+    <div className="space-y-8">
+      <div>
+        <h3 className="font-serif text-2xl font-normal text-charcoal mb-2">
+          or use this form
         </h3>
-        <p className="mt-2 text-xs sm:text-sm text-charcoal-muted font-light leading-relaxed">
-          Please fill out the details below. Upon submission, this form will open your default email client with your message pre-formatted directly to{' '}
-          <strong className="text-charcoal font-medium">{ARTIST.contact.email}</strong>.
+        <p className="text-sm text-charcoal/45 font-light leading-relaxed">
+          Fill this in and it will open your email app with everything pre-written,
+          addressed to{' '}
+          <span className="text-charcoal/70">{ARTIST.contact.email}</span>.
         </p>
       </div>
 
@@ -135,28 +136,28 @@ export function ContactForm() {
       <form onSubmit={handleSubmit} noValidate className="space-y-6">
         {/* Inquiry Type Selector */}
         <div>
-          <label className="block text-xs uppercase tracking-wider font-medium text-charcoal mb-2">
-            Inquiry Nature
+          <label className="block text-sm font-serif font-normal text-charcoal/70 mb-3">
+            what is this about?
           </label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div className="flex flex-wrap gap-2">
             {(['Acquisition', 'Commission', 'General', 'Press'] as const).map((type) => (
               <button
                 key={type}
                 type="button"
                 onClick={() => setFormData({ ...formData, inquiryType: type })}
-                className={`py-2.5 px-3 rounded-lg text-xs font-medium border text-center transition-all ${
+                className={`py-1.5 px-4 text-sm font-light border-b-2 transition-all ${
                   formData.inquiryType === type
-                    ? 'bg-charcoal text-canvas border-charcoal shadow-sm'
-                    : 'bg-canvas-subtle border-[#E3DDD5] text-charcoal-muted hover:text-charcoal hover:border-charcoal/40'
+                    ? 'border-terracotta text-charcoal'
+                    : 'border-transparent text-charcoal/40 hover:text-charcoal/70 hover:border-charcoal/20'
                 }`}
               >
                 {type === 'Acquisition'
-                  ? 'Artwork Purchase'
+                  ? 'a painting'
                   : type === 'Commission'
-                  ? 'Custom Painting'
+                  ? 'a commission'
                   : type === 'Press'
-                  ? 'Press / Gallery'
-                  : 'General'}
+                  ? 'press / exhibition'
+                  : 'something else'}
               </button>
             ))}
           </div>
@@ -167,9 +168,9 @@ export function ContactForm() {
           <div>
             <label
               htmlFor="name"
-              className="block text-xs uppercase tracking-wider font-medium text-charcoal mb-2"
+              className="block text-sm font-serif font-normal text-charcoal/70 mb-2"
             >
-              Your Full Name <span className="text-terracotta">*</span>
+              your name <span className="text-terracotta">*</span>
             </label>
             <input
               id="name"
@@ -179,15 +180,15 @@ export function ContactForm() {
                 setFormData({ ...formData, name: e.target.value });
                 if (errors.name) setErrors({ ...errors, name: undefined });
               }}
-              placeholder="e.g. Helena Vance"
-              className={`w-full px-4 py-3 rounded-xl bg-canvas border text-sm text-charcoal placeholder:text-charcoal-muted/50 focus:outline-none transition-colors ${
+              placeholder="e.g. Elena"
+              className={`w-full px-0 py-2 bg-transparent border-0 border-b text-sm text-charcoal placeholder:text-charcoal/25 focus:outline-none transition-colors ${
                 errors.name
-                  ? 'border-red-500 focus:border-red-500'
-                  : 'border-[#E3DDD5] focus:border-charcoal'
+                  ? 'border-red-400 focus:border-red-400'
+                  : 'border-charcoal/15 focus:border-charcoal/50'
               }`}
             />
             {errors.name && (
-              <p className="mt-1.5 text-xs text-red-600 flex items-center space-x-1">
+              <p className="mt-1.5 text-xs text-red-500 flex items-center space-x-1">
                 <AlertCircle className="w-3 h-3" />
                 <span>{errors.name}</span>
               </p>
@@ -197,9 +198,9 @@ export function ContactForm() {
           <div>
             <label
               htmlFor="email"
-              className="block text-xs uppercase tracking-wider font-medium text-charcoal mb-2"
+              className="block text-sm font-serif font-normal text-charcoal/70 mb-2"
             >
-              Your Email Address <span className="text-terracotta">*</span>
+              your email <span className="text-terracotta">*</span>
             </label>
             <input
               id="email"
@@ -209,15 +210,15 @@ export function ContactForm() {
                 setFormData({ ...formData, email: e.target.value });
                 if (errors.email) setErrors({ ...errors, email: undefined });
               }}
-              placeholder="e.g. helena@collector.com"
-              className={`w-full px-4 py-3 rounded-xl bg-canvas border text-sm text-charcoal placeholder:text-charcoal-muted/50 focus:outline-none transition-colors ${
+              placeholder="hello@example.com"
+              className={`w-full px-0 py-2 bg-transparent border-0 border-b text-sm text-charcoal placeholder:text-charcoal/25 focus:outline-none transition-colors ${
                 errors.email
-                  ? 'border-red-500 focus:border-red-500'
-                  : 'border-[#E3DDD5] focus:border-charcoal'
+                  ? 'border-red-400 focus:border-red-400'
+                  : 'border-charcoal/15 focus:border-charcoal/50'
               }`}
             />
             {errors.email && (
-              <p className="mt-1.5 text-xs text-red-600 flex items-center space-x-1">
+              <p className="mt-1.5 text-xs text-red-500 flex items-center space-x-1">
                 <AlertCircle className="w-3 h-3" />
                 <span>{errors.email}</span>
               </p>
@@ -229,9 +230,9 @@ export function ContactForm() {
         <div>
           <label
             htmlFor="subject"
-            className="block text-xs uppercase tracking-wider font-medium text-charcoal mb-2"
+            className="block text-sm font-serif font-normal text-charcoal/70 mb-2"
           >
-            Subject <span className="text-terracotta">*</span>
+            subject <span className="text-terracotta">*</span>
           </label>
           <input
             id="subject"
@@ -241,15 +242,15 @@ export function ContactForm() {
               setFormData({ ...formData, subject: e.target.value });
               if (errors.subject) setErrors({ ...errors, subject: undefined });
             }}
-            placeholder="e.g. Inquiring about available works or bespoke canvas"
-            className={`w-full px-4 py-3 rounded-xl bg-canvas border text-sm text-charcoal placeholder:text-charcoal-muted/50 focus:outline-none transition-colors ${
+            placeholder="e.g. that painting of the field"
+            className={`w-full px-0 py-2 bg-transparent border-0 border-b text-sm text-charcoal placeholder:text-charcoal/25 focus:outline-none transition-colors ${
               errors.subject
-                ? 'border-red-500 focus:border-red-500'
-                : 'border-[#E3DDD5] focus:border-charcoal'
+                ? 'border-red-400 focus:border-red-400'
+                : 'border-charcoal/15 focus:border-charcoal/50'
             }`}
           />
           {errors.subject && (
-            <p className="mt-1.5 text-xs text-red-600 flex items-center space-x-1">
+            <p className="mt-1.5 text-xs text-red-500 flex items-center space-x-1">
               <AlertCircle className="w-3 h-3" />
               <span>{errors.subject}</span>
             </p>
@@ -260,47 +261,46 @@ export function ContactForm() {
         <div>
           <label
             htmlFor="message"
-            className="block text-xs uppercase tracking-wider font-medium text-charcoal mb-2"
+            className="block text-sm font-serif font-normal text-charcoal/70 mb-2"
           >
-            Your Message <span className="text-terracotta">*</span>
+            your message <span className="text-terracotta">*</span>
           </label>
           <textarea
             id="message"
-            rows={5}
+            rows={6}
             value={formData.message}
             onChange={(e) => {
               setFormData({ ...formData, message: e.target.value });
               if (errors.message) setErrors({ ...errors, message: undefined });
             }}
-            placeholder="Share details regarding your space, preferred scale, or questions about specific paintings..."
-            className={`w-full px-4 py-3 rounded-xl bg-canvas border text-sm text-charcoal placeholder:text-charcoal-muted/50 focus:outline-none transition-colors leading-relaxed ${
+            placeholder="Tell me what's on your mind…"
+            className={`w-full px-0 py-2 bg-transparent border-0 border-b text-sm text-charcoal placeholder:text-charcoal/25 focus:outline-none transition-colors leading-relaxed resize-none ${
               errors.message
-                ? 'border-red-500 focus:border-red-500'
-                : 'border-[#E3DDD5] focus:border-charcoal'
+                ? 'border-red-400 focus:border-red-400'
+                : 'border-charcoal/15 focus:border-charcoal/50'
             }`}
           />
           {errors.message && (
-            <p className="mt-1.5 text-xs text-red-600 flex items-center space-x-1">
+            <p className="mt-1.5 text-xs text-red-500 flex items-center space-x-1">
               <AlertCircle className="w-3 h-3" />
               <span>{errors.message}</span>
             </p>
           )}
         </div>
 
-        {/* Submit Button */}
-        <div>
+        {/* Submit */}
+        <div className="pt-2">
           <button
             type="submit"
-            className="w-full sm:w-auto inline-flex items-center justify-center space-x-3 px-8 py-4 rounded-full bg-charcoal text-canvas hover:bg-terracotta text-xs uppercase tracking-[0.16em] font-medium transition-colors shadow-gallery-sm group"
+            className="inline-flex items-center gap-3 text-sm text-charcoal border-b border-charcoal/30 hover:border-terracotta hover:text-terracotta transition-colors pb-0.5 group font-serif"
           >
-            <Mail className="w-4 h-4 text-canvas" />
-            <span>Open Email to Send Inquiry</span>
-            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <Mail className="w-4 h-4" />
+            send via email
           </button>
         </div>
 
-        <p className="text-[11px] text-charcoal-muted font-light">
-          No data is stored on external servers. All correspondence is handled through your personal secure email application.
+        <p className="text-xs text-charcoal/30 font-light">
+          This opens your email app. Nothing is stored anywhere.
         </p>
       </form>
     </div>

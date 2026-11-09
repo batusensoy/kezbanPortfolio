@@ -3,231 +3,164 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ARTIST } from '@/data/artist';
-import { ArrowUpRight, Palette, Layers, Compass, Sparkles } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About the Artist & Artistic Philosophy',
-  description: `Biography, philosophy, and creative process of contemporary fine artist ${ARTIST.name}. Studio practices in Istanbul & London.`,
+  title: 'About',
+  description: `About Kezban Tanli — painter, her process, and what she thinks about while she works.`,
 };
 
 export default function AboutPage() {
   return (
-    <div className="py-12 sm:py-20 bg-canvas min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-20 sm:space-y-28">
-        {/* Hero Editorial Profile Section */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column: Portrait in Museum Mat (5 cols) */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative p-3 sm:p-4 bg-canvas-elevated rounded-2xl border border-[#E3DDD5] shadow-frame">
-              <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-[#EDE6DF]">
-                <Image
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85"
-                  alt={`${ARTIST.name} portrait`}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 42vw"
-                  className="object-cover object-center filter grayscale contrast-[1.05]"
-                />
-              </div>
-              <div className="mt-4 pt-3 border-t border-[#EDE6DF] flex items-center justify-between text-xs text-charcoal-muted font-light px-1">
-                <span>{ARTIST.name}</span>
-                <span>{ARTIST.location}</span>
-              </div>
+    <div className="bg-canvas min-h-screen">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 sm:pt-24 pb-28 space-y-28 sm:space-y-36">
+
+        {/* — Portrait & greeting — */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+          {/* Portrait taped to wall */}
+          <div className="relative max-w-sm mx-auto lg:mx-0">
+            {/* masking tape strips */}
+            <div className="masking-tape absolute -top-3 left-[20%] w-20 h-5 rotate-[-2deg] z-10" />
+            <div className="masking-tape absolute -top-3 right-[18%] w-16 h-5 rotate-[3deg] z-10" />
+            <div className="masking-tape absolute -bottom-3 left-[12%] w-18 h-5 rotate-[1deg] z-10" />
+
+            <div className="relative overflow-hidden bg-[#EDE6DF]" style={{ aspectRatio: '3/4' }}>
+              <Image
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80"
+                alt={`${ARTIST.name}, painter`}
+                fill
+                priority
+                sizes="(max-width: 1024px) 90vw, 42vw"
+                className="object-cover object-center filter saturate-[0.85] contrast-[1.03]"
+              />
             </div>
+            {/* small handwritten caption */}
+            <p className="font-hand text-sm text-charcoal/50 mt-3 pl-1">
+              in the studio, {ARTIST.location.split(',')[0]}
+            </p>
           </div>
 
-          {/* Right Column: Bio Narrative (7 cols) */}
-          <div className="lg:col-span-7 space-y-6">
-            <span className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium block">
-              Biography & Artistic Identity
-            </span>
-
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-charcoal leading-[1.12]">
-              Giving weight and breath to the unspoken memory of matter.
+          {/* Bio text */}
+          <div className="space-y-8 pt-4 lg:pt-10">
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-5xl font-normal text-charcoal leading-[1.1]">
+              Hello, and thank you<br />for looking.
             </h1>
 
-            <div className="space-y-4 text-base sm:text-lg text-charcoal-muted leading-relaxed font-light">
+            <div className="space-y-5 text-base sm:text-lg text-charcoal/65 leading-relaxed font-light">
               <p>{ARTIST.shortBio}</p>
               <p>
-                Working across studios in Istanbul and London, her practice bridges the ancient mineral traditions of Anatolia and the Mediterranean with contemporary European abstract matterism. She grinds raw limestone, ochres, and lapis lazuli by hand, mixing them with cold beeswax and slow-curing walnut oils.
+                I work in a small room with a window that faces north. The light is
+                steady and honest, which is what I need. I try to paint what a quiet
+                afternoon feels like, and then get out of the way.
               </p>
               <p>
-                Her large canvases do not invite hurried observation; they demand quiet stillness, revealing nuanced shifts in luminescence and raking shadow as natural daylight changes across the day.
+                Most paintings start as something I saw and couldn&apos;t stop thinking
+                about — a field, a table, the way colour sits between two things that
+                don&apos;t quite touch. I&apos;m interested in the almost, the nearly, the
+                colour that doesn&apos;t have a name yet.
               </p>
             </div>
 
-            <div className="pt-4 flex items-center space-x-6">
-              <Link
-                href="/gallery"
-                className="inline-flex items-center space-x-2 text-xs uppercase tracking-[0.16em] px-6 py-3.5 rounded-full bg-charcoal text-canvas hover:bg-terracotta transition-colors font-medium group"
-              >
-                <span>View Current Paintings</span>
-                <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-
+            {/* Handwritten signature */}
+            <div className="pt-2">
+              <p className="font-hand text-3xl text-charcoal/80">Kezban</p>
               <Link
                 href="/contact"
-                className="text-xs uppercase tracking-[0.16em] text-charcoal hover:text-terracotta underline font-medium"
+                className="mt-4 inline-block text-sm text-charcoal/50 border-b border-charcoal/20 hover:text-charcoal hover:border-charcoal/50 transition-colors pb-0.5"
               >
-                Inquire for Studio Visits
+                write to me
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Artistic Statement Pullquote */}
-        <section className="py-16 sm:py-24 px-8 sm:px-16 rounded-3xl bg-[#F4EFEB] border border-[#E8E2D9] text-center max-w-5xl mx-auto">
-          <span className="text-xs uppercase tracking-[0.3em] text-terracotta font-medium mb-6 block">
-            Artist&apos;s Statement
-          </span>
-          <blockquote className="font-serif text-2xl sm:text-3xl lg:text-4xl text-charcoal font-normal leading-snug italic max-w-3xl mx-auto">
+        {/* — Artist's statement — */}
+        <section className="max-w-3xl">
+          <p className="font-hand text-xl text-terracotta mb-6">on painting</p>
+          <blockquote className="font-serif text-2xl sm:text-3xl lg:text-4xl text-charcoal font-normal leading-[1.3] italic">
             &ldquo;{ARTIST.artisticStatement}&rdquo;
           </blockquote>
-          <div className="mt-8 text-xs uppercase tracking-widest text-charcoal-muted font-sans font-light">
-            — {ARTIST.name}, Istanbul Studio
-          </div>
         </section>
 
-        {/* Philosophy & Creative Process */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Left: Philosophy Pillars (6 cols) */}
-          <div className="lg:col-span-6 space-y-8">
-            <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium block mb-3">
-                Philosophy
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-normal text-charcoal">
-                Core Conceptual Foundations
-              </h2>
-            </div>
-
-            <div className="space-y-6">
-              {ARTIST.philosophy.map((pillar, i) => (
-                <div
-                  key={pillar.title}
-                  className="p-6 rounded-2xl bg-canvas-subtle border border-[#E8E2D9] space-y-2"
-                >
-                  <div className="flex items-center space-x-3">
-                    <span className="text-xs font-mono text-terracotta">0{i + 1}</span>
-                    <h3 className="font-serif text-lg font-medium text-charcoal">
-                      {pillar.title}
-                    </h3>
-                  </div>
-                  <p className="text-sm text-charcoal-muted leading-relaxed font-light pl-7">
-                    {pillar.description}
-                  </p>
-                </div>
+        {/* — How I work — */}
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24">
+          <div className="space-y-6">
+            <p className="font-hand text-xl text-terracotta">how I work</p>
+            <div className="space-y-5 text-base text-charcoal/65 leading-relaxed font-light">
+              {ARTIST.process.map((step, i) => (
+                <p key={i}>{step}</p>
               ))}
             </div>
           </div>
 
-          {/* Right: Studio Process & Influences (6 cols) */}
-          <div className="lg:col-span-6 space-y-8">
-            <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium block mb-3">
-                Methodology
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-normal text-charcoal">
-                Studio Rituals & Influences
-              </h2>
-            </div>
-
-            {/* Step-by-step process */}
-            <div className="p-8 rounded-2xl bg-canvas-subtle border border-[#E8E2D9] space-y-6">
-              <h3 className="text-xs uppercase tracking-[0.2em] font-semibold text-charcoal flex items-center space-x-2">
-                <Layers className="w-4 h-4 text-terracotta" />
-                <span>The Alchemy of the Studio</span>
-              </h3>
-              <ol className="space-y-4 text-sm text-charcoal-muted font-light">
-                {ARTIST.process.map((step, idx) => (
-                  <li key={idx} className="flex items-start space-x-3">
-                    <span className="text-terracotta font-serif font-medium text-base shrink-0 mt-0.5">
-                      {idx + 1}.
-                    </span>
-                    <span className="leading-relaxed">{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            {/* Influences */}
-            <div className="p-8 rounded-2xl bg-canvas-subtle border border-[#E8E2D9] space-y-4">
-              <h3 className="text-xs uppercase tracking-[0.2em] font-semibold text-charcoal flex items-center space-x-2">
-                <Compass className="w-4 h-4 text-terracotta" />
-                <span>Lineage & Dialogue</span>
-              </h3>
-              <ul className="space-y-2 text-xs text-charcoal-muted leading-relaxed font-light">
-                {ARTIST.influences.map((inf, i) => (
-                  <li key={i} className="border-b border-[#E3DDD5] pb-2 last:border-none">
-                    {inf}
-                  </li>
-                ))}
-              </ul>
+          <div className="space-y-6">
+            <p className="font-hand text-xl text-terracotta">what I look at</p>
+            <div className="space-y-3">
+              {ARTIST.influences.map((inf, i) => (
+                <p
+                  key={i}
+                  className="text-base text-charcoal/65 font-light border-b border-charcoal/8 pb-3 last:border-none last:pb-0"
+                >
+                  {inf}
+                </p>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Selected Exhibition History */}
-        <section className="space-y-10 pt-12 border-t border-[#E8E2D9]">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium block mb-2">
-                Curatorial Record
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-normal text-charcoal">
-                Selected Exhibitions & Fairs
-              </h2>
-            </div>
-            <p className="text-xs text-charcoal-muted font-light">
-              Museum & Gallery Archives 2023–2026
-            </p>
-          </div>
-
-          <div className="divide-y divide-[#E8E2D9] border-y border-[#E8E2D9]">
-            {ARTIST.exhibitions.map((ex, idx) => (
-              <div
-                key={idx}
-                className="py-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline hover:bg-canvas-subtle/50 px-2 transition-colors"
-              >
-                <div className="md:col-span-2 font-mono text-sm text-terracotta">
-                  {ex.year}
-                </div>
-                <div className="md:col-span-5 font-serif text-lg font-medium text-charcoal">
-                  {ex.title}
-                </div>
-                <div className="md:col-span-3 text-sm text-charcoal-muted font-light">
-                  {ex.venue}, {ex.city}
-                </div>
-                <div className="md:col-span-2 text-right">
-                  <span className="text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full bg-canvas-subtle border border-[#E8E2D9] text-charcoal-muted font-medium">
-                    {ex.type}
-                  </span>
-                </div>
+        {/* — What I'm drawn to — */}
+        <section className="space-y-8">
+          <p className="font-hand text-xl text-terracotta">things I keep coming back to</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            {ARTIST.philosophy.map((pillar) => (
+              <div key={pillar.title} className="space-y-3">
+                <h3 className="font-serif text-xl font-normal text-charcoal">
+                  {pillar.title}
+                </h3>
+                <p className="text-sm text-charcoal/55 leading-relaxed font-light">
+                  {pillar.description}
+                </p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Contact CTA */}
-        <section className="pt-8 pb-12 text-center space-y-6 border-t border-[#E8E2D9]">
-          <h3 className="font-serif text-3xl font-normal text-charcoal">
-            Interested in Studio Visits or Acquisitions?
-          </h3>
-          <p className="text-sm text-charcoal-muted font-light max-w-lg mx-auto">
-            {ARTIST.contact.studioVisitNote}
-          </p>
-          <div className="pt-2">
-            <Link
-              href="/contact"
-              className="inline-flex items-center space-x-2 px-8 py-3.5 rounded-full bg-charcoal text-canvas hover:bg-terracotta text-xs uppercase tracking-[0.16em] font-medium transition-colors"
-            >
-              <span>Connect with the Studio</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
+        {/* — Exhibition list — scrapbook style — */}
+        <section className="space-y-8">
+          <p className="font-hand text-xl text-terracotta">shown at</p>
+          <div className="space-y-0 divide-y divide-charcoal/8">
+            {ARTIST.exhibitions.map((ex, idx) => (
+              <div
+                key={idx}
+                className="py-5 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-8"
+              >
+                <span className="font-hand text-base text-terracotta/70 shrink-0 w-12">
+                  {ex.year}
+                </span>
+                <span className="font-serif text-lg text-charcoal font-normal flex-1">
+                  {ex.title}
+                </span>
+                <span className="text-sm text-charcoal/45 font-light shrink-0">
+                  {ex.venue}, {ex.city}
+                </span>
+              </div>
+            ))}
           </div>
         </section>
+
+        {/* — Closing CTA — */}
+        <section className="text-center space-y-5 pt-4">
+          <p className="font-serif text-2xl sm:text-3xl text-charcoal font-normal">
+            If you&apos;d like to know more, or see a painting in person —
+          </p>
+          <Link
+            href="/contact"
+            className="inline-block font-serif text-xl text-terracotta border-b-2 border-terracotta/30 hover:border-terracotta transition-colors pb-0.5"
+          >
+            just write to me.
+          </Link>
+        </section>
+
       </div>
     </div>
   );
 }
-
