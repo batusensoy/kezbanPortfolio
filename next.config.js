@@ -1,8 +1,14 @@
 /** @type {import('next').NextConfig} */
+const isGithubPages = process.env.GITHUB_PAGES === 'true';
+
 const nextConfig = {
-  reactStrictMode: true,
+  output: 'export',
+  // When deploying to https://<username>.github.io/<repo-name>/
+  basePath: isGithubPages ? '/kezbanPortfolio' : '',
+  assetPrefix: isGithubPages ? '/kezbanPortfolio/' : undefined,
+  trailingSlash: true,
   images: {
-    domains: ['images.unsplash.com', 'plus.unsplash.com', 'picsum.photos'],
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -13,19 +19,6 @@ const nextConfig = {
         hostname: 'picsum.photos',
       },
     ],
-  },
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          { key: 'X-DNS-Prefetch-Control', value: 'on' },
-          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
-          { key: 'X-Content-Type-Options', value: 'nosniff' },
-          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-        ],
-      },
-    ];
   },
 };
 
