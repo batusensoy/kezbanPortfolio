@@ -2,13 +2,18 @@
 const isGithubPages = process.env.GITHUB_PAGES === 'true';
 
 const nextConfig = {
-  output: 'export',
-  // When deploying to https://<username>.github.io/<repo-name>/
-  basePath: isGithubPages ? '/kezbanPortfolio' : '',
-  assetPrefix: isGithubPages ? '/kezbanPortfolio/' : undefined,
-  trailingSlash: true,
+  reactStrictMode: true,
+  ...(isGithubPages
+    ? {
+        output: 'export',
+        basePath: '/kezbanPortfolio',
+        assetPrefix: '/kezbanPortfolio/',
+        trailingSlash: true,
+      }
+    : {}),
   images: {
-    unoptimized: true,
+    unoptimized: isGithubPages,
+    domains: ['images.unsplash.com', 'plus.unsplash.com', 'picsum.photos'],
     remotePatterns: [
       {
         protocol: 'https',

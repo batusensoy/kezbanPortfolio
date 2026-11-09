@@ -9,38 +9,40 @@ module.exports = {
     extend: {
       colors: {
         canvas: {
-          DEFAULT: '#F4EFE6', // Warm parchment / studio paper tone from screenshot
-          pure: '#FAF7F2',
-          subtle: '#EFE8DC',
-          dark: '#E7DFCFCF',
+          DEFAULT: '#FAF8F5', // Warm ivory
+          subtle: '#F4EFEB',  // Soft linen beige
+          muted: '#EDE6DF',   // Earthy neutral stone
+          elevated: '#FFFFFF',
         },
         charcoal: {
-          DEFAULT: '#2A2724', // Warm deep brown-charcoal ink
-          soft: '#4A4540',
-          muted: '#7A746D',
-          border: '#DDD5C8',
-        },
-        ochre: {
-          DEFAULT: '#D49B45',
-          dark: '#B87B2E',
+          DEFAULT: '#1C1B1A', // Deep organic charcoal
+          light: '#2E2C2A',
+          muted: '#615E59',   // Warm graphite
+          border: '#E3DDD5',  // Subtle canvas border
         },
         terracotta: {
-          DEFAULT: '#C35E44',
-          soft: '#D97A62',
+          DEFAULT: '#B45A3C', // Earthy art accent
+          hover: '#9E4E33',
+          light: '#F8EFEA',
         },
-        sage: {
-          DEFAULT: '#6B7A63',
+        ochre: {
+          DEFAULT: '#C49746',
+          light: '#FAF3E3',
+        },
+        olive: {
+          DEFAULT: '#606B56',
+          light: '#EFF2EC',
         },
       },
       fontFamily: {
-        hand: ['"Caveat"', 'cursive'],
-        serif: ['"Newsreader"', '"Playfair Display"', 'Georgia', 'serif'],
-        sans: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Cormorant Garamond', 'Baskerville', 'Georgia', 'serif'],
+        sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
       },
       boxShadow: {
-        'canvas-float': '0 12px 32px -8px rgba(42, 39, 36, 0.16), 0 4px 12px -2px rgba(42, 39, 36, 0.08)',
-        'canvas-subtle': '0 6px 20px -4px rgba(42, 39, 36, 0.10)',
-        'polaroid': '0 4px 16px -2px rgba(42, 39, 36, 0.12), 0 0 0 1px rgba(42, 39, 36, 0.05)',
+        'gallery-sm': '0 2px 8px -2px rgba(28, 27, 26, 0.05)',
+        'gallery-md': '0 8px 24px -4px rgba(28, 27, 26, 0.08)',
+        'gallery-lg': '0 20px 40px -8px rgba(28, 27, 26, 0.12)',
+        'frame': '0 0 0 1px rgba(28, 27, 26, 0.08), 0 16px 36px -12px rgba(28, 27, 26, 0.14)',
       },
     },
   },

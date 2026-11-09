@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Kezban Tanli — Fine Art Portfolio E2E Tests', () => {
-  test('Home Page renders artist identity, hero, and navigation', async ({ page }) => {
+  test('Home Page renders artist identity, hero, and featured artworks', async ({ page }) => {
     // Monitor console errors
     const consoleErrors: string[] = [];
     page.on('console', (msg) => {
@@ -10,44 +10,47 @@ test.describe('Kezban Tanli — Fine Art Portfolio E2E Tests', () => {
 
     await page.goto('/');
 
-    // The handwritten "Kezban" signature logo in the navbar
-    await expect(page.getByText('Kezban').first()).toBeVisible();
-
-    // Hero h1 heading
+    // Check artist title and name
+    await expect(page.getByText('KEZBAN TANLI').first()).toBeVisible();
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
-    // "write to me" link in hero navigates to /contact
-    const writeCta = page.getByRole('link', { name: 'write to me' }).first();
-    await expect(writeCta).toBeVisible();
+    // Check CTAs
+    const exploreCta = page.getByRole('link', { name: 'Explore Artwork' });
+    await expect(exploreCta).toBeVisible();
 
-    // "paintings" nav link navigates to /gallery
-    const paintingsLink = page.getByRole('link', { name: 'paintings' }).first();
-    await expect(paintingsLink).toBeVisible();
-    await paintingsLink.click();
+    // Verify featured artwork grid has cards
+    const featuredHeadings = page.getByRole('heading', { name: 'Solitude in Ochre No. 4' });
+    await expect(featuredHeadings.first()).toBeVisible();
+
+    // Verify navigation works
+    await exploreCta.click();
     await expect(page).toHaveURL(/.*\/gallery/);
   });
 
-  test('Gallery Page loads, filters work, and count updates', async ({ page }) => {
+  test('Gallery Page supports category filtering and available toggle', async ({ page }) => {
     await page.goto('/gallery');
 
-    // Check gallery h1 is visible
-    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    // Check main gallery title
+    await expect(page.getByRole('heading', { name: 'Exhibition Catalog & Archive' })).toBeVisible();
 
-    // Initial count should show 12 paintings
-    await expect(page.getByText(/12 paintings/i)).toBeVisible();
+    // Initial count should show 12 artworks
+    await expect(page.getByText(/Showing 12 artworks/i)).toBeVisible();
 
-    // Filter by any category — count text changes
-    const filterButtons = page.locator('button').filter({ hasText: /all/i });
-    await expect(filterButtons.first()).toBeVisible();
+    // Filter by 'Oil on Canvas'
+    await page.getByRole('button', { name: 'Oil on Canvas' }).click();
+    await expect(page.getByText(/Showing \d+ artworks/i)).toBeVisible();
 
-    // Click 'available only' toggle
-    await page.getByRole('button', { name: /available only/i }).click();
-    await expect(page.getByText(/paintings/i)).toBeVisible();
+    // Filter by 'Abstract Expressionism'
+    await page.getByRole('button', { name: 'Abstract Expressionism' }).click();
+    await expect(page.getByText(/Showing \d+ artworks/i)).toBeVisible();
 
-    // Click 'all' in lowercase filters
-    const allBtn = page.getByRole('button', { name: /^all$/i });
-    await allBtn.click();
-    await expect(page.getByText(/12 paintings/i)).toBeVisible();
+    // Click 'All'
+    await page.getByRole('button', { name: 'All' }).click();
+    await expect(page.getByText(/Showing 12 artworks/i)).toBeVisible();
+
+    // Toggle 'Available Only'
+    await page.getByRole('button', { name: /Available Only/i }).click();
+    await expect(page.getByText(/Showing \d+ artworks/i)).toBeVisible();
   });
 
   test('Artwork Detail View displays full specs and inquiry links', async ({ page }) => {
@@ -64,37 +67,31 @@ test.describe('Kezban Tanli — Fine Art Portfolio E2E Tests', () => {
 
     // Clicking inquire navigates to contact page with pre-filled artwork title
     await inquireLink.click();
-    await expect(page).toHaveURL(/.*\/contact\?artwork=Solitude%20in%20Ochre%20No\.[%20.]4/);
+    await expect(page).toHaveURL(/.*\/contact\?artwork=Solitude%20in%20Ochre%20No\.%204/);
 
-    // Form subject input should contain the artwork title
+    // Form inputs should contain the artwork in subject
     const subjectInput = page.locator('input#subject');
     await expect(subjectInput).toHaveValue('Acquisition Inquiry: "Solitude in Ochre No. 4"');
   });
 
-  test('About Page renders biography text and exhibitions', async ({ page }) => {
+  test('About Page renders biography, philosophy, and exhibitions', async ({ page }) => {
     await page.goto('/about');
 
-    // Check the organic greeting heading
-    await expect(page.getByRole('heading', { name: /Hello, and thank you/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Giving weight and breath to the unspoken memory/i })).toBeVisible();
+    await expect(page.getByText(/Material Honesty & Raw Earth/i)).toBeVisible();
+    await expect(page.getByText(/Selected Exhibitions & Fairs/i)).toBeVisible();
 
-    // Check philosophy section — rendered as paragraph headings now
-    await expect(page.getByText(/Material Honesty/i)).toBeVisible();
-
-    // Check exhibitions section
-    await expect(page.getByText(/shown at/i)).toBeVisible();
-
-    // Check exhibition entry from data
+    // Check exhibition entry
     await expect(page.getByText('Resonance of Silence & Stone')).toBeVisible();
   });
 
   test('Contact Page validates form fields client-side', async ({ page }) => {
     await page.goto('/contact');
 
-    // Check the new organic heading
-    await expect(page.getByRole('heading', { name: /Write to me/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Connect with Kezban Tanli/i })).toBeVisible();
 
     // Submit empty form to trigger validation
-    const submitBtn = page.getByRole('button', { name: /send via email/i });
+    const submitBtn = page.getByRole('button', { name: /Open Email to Send Inquiry/i });
     await submitBtn.click();
 
     // Validation errors should appear

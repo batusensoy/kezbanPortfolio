@@ -20,60 +20,57 @@ export function ArtworkFilters({
   count,
 }: ArtworkFiltersProps) {
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 pb-10 border-b border-charcoal/10">
-      {/* Category filters — underline style, lowercase, editorial */}
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+    <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-8 border-b border-[#E8E2D9]">
+      {/* Category Filter Pills with layoutId spring indicator */}
+      <div className="flex flex-wrap items-center gap-2">
         {ARTWORK_CATEGORIES.map((category) => {
           const isSelected = activeCategory === category;
           return (
             <button
               key={category}
               onClick={() => onSelectCategory(category)}
-              className="relative text-sm font-light pb-0.5 transition-colors select-none"
+              className={`relative px-4 py-2 rounded-full text-xs uppercase tracking-wider font-medium transition-colors duration-200 select-none ${
+                isSelected ? 'text-canvas' : 'text-charcoal-muted hover:text-charcoal bg-canvas-subtle/60'
+              }`}
             >
-              <span
-                className={
-                  isSelected
-                    ? 'text-charcoal font-normal'
-                    : 'text-charcoal/40 hover:text-charcoal/70'
-                }
-              >
-                {category.toLowerCase()}
-              </span>
               {isSelected && (
                 <motion.div
-                  layoutId="activeCategoryUnderline"
-                  className="absolute bottom-0 left-0 right-0 h-px bg-terracotta"
-                  transition={{ type: 'spring', stiffness: 500, damping: 36 }}
+                  layoutId="activeCategoryPill"
+                  className="absolute inset-0 bg-charcoal rounded-full"
+                  transition={{ type: 'spring', stiffness: 450, damping: 32 }}
                 />
               )}
+              <span className="relative z-10">{category}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Right: available toggle + count */}
-      <div className="flex items-center gap-5 self-end sm:self-center">
+      {/* Right side: Available-only toggle & artwork count */}
+      <div className="flex items-center space-x-4 self-end lg:self-center">
         <button
           onClick={() =>
             onToggleStatusFilter(activeStatusFilter === 'all' ? 'available' : 'all')
           }
-          className="flex items-center gap-2 text-xs text-charcoal/50 hover:text-charcoal transition-colors"
+          className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-all flex items-center space-x-2 ${
+            activeStatusFilter === 'available'
+              ? 'bg-olive text-canvas border-olive shadow-sm'
+              : 'border-[#E3DDD5] text-charcoal-muted hover:text-charcoal hover:border-charcoal/40'
+          }`}
         >
           <span
-            className={`w-2 h-2 rounded-full border transition-colors ${
-              activeStatusFilter === 'available'
-                ? 'bg-terracotta border-terracotta'
-                : 'bg-transparent border-charcoal/30'
+            className={`w-2 h-2 rounded-full ${
+              activeStatusFilter === 'available' ? 'bg-canvas' : 'bg-olive'
             }`}
           />
-          available only
+          <span>Available Only</span>
         </button>
 
-        <span className="text-xs text-charcoal/35 font-light">
-          {count} {count === 1 ? 'painting' : 'paintings'}
+        <span className="text-xs text-charcoal-muted font-sans font-light">
+          Showing <span className="font-medium text-charcoal">{count}</span> {count === 1 ? 'artwork' : 'artworks'}
         </span>
       </div>
     </div>
   );
 }
+

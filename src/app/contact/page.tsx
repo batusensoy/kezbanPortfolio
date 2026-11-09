@@ -2,120 +2,141 @@ import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { ContactForm } from '@/components/contact/ContactForm';
 import { ARTIST } from '@/data/artist';
-import { Mail, Instagram, MessageCircle } from 'lucide-react';
+import { Mail, Instagram, MessageCircle, MapPin, Clock, ShieldCheck, ArrowUpRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Write to me',
-  description: `Get in touch with Kezban Tanli about paintings, commissions, or anything else.`,
+  title: 'Contact & Art Acquisition Inquiries',
+  description: `Contact contemporary artist ${ARTIST.name} for artwork acquisitions, bespoke commissions, gallery exhibitions, or private studio appointments.`,
 };
 
 export default function ContactPage() {
   return (
-    <div className="bg-canvas min-h-screen">
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 sm:pt-24 pb-28">
-
-        {/* Header */}
-        <div className="mb-16 max-w-xl">
-          <p className="font-hand text-2xl text-terracotta mb-4">get in touch</p>
-          <h1 className="font-serif text-5xl sm:text-6xl font-normal text-charcoal leading-[1.08] mb-6">
-            Write to me.
+    <div className="py-12 sm:py-20 bg-canvas min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-16">
+        {/* Header Section */}
+        <div className="max-w-3xl space-y-4">
+          <span className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium block">
+            Studio Inquiries
+          </span>
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-charcoal tracking-tight leading-[1.12]">
+            Connect with {ARTIST.name}
           </h1>
-          <p className="text-base sm:text-lg text-charcoal/55 leading-relaxed font-light">
-            I read everything myself. Whether you&apos;re interested in a painting,
-            thinking about a commission, or just want to say something — I&apos;d love
-            to hear from you.
+          <p className="text-base sm:text-lg text-charcoal-muted leading-relaxed font-light">
+            I welcome conversations regarding original paintings, site-specific architectural commissions, gallery exhibitions, and private studio visits in Istanbul and London.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-20 items-start">
+        {/* Main Grid: Info Cards (5 cols) & Contact Form (7 cols) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Column: Direct Contact & Information (5 cols) */}
+          <div className="lg:col-span-5 space-y-8">
+            {/* Quick Contact Methods */}
+            <div className="p-8 rounded-3xl bg-canvas-subtle border border-[#E8E2D9] space-y-6">
+              <h3 className="font-serif text-xl font-medium text-charcoal">
+                Direct Studio Channels
+              </h3>
 
-          {/* Left: direct channels (2 cols) */}
-          <div className="lg:col-span-2 space-y-10">
+              <div className="space-y-4 text-sm">
+                <a
+                  href={`mailto:${ARTIST.contact.email}`}
+                  className="flex items-start space-x-3 p-3 rounded-xl hover:bg-canvas transition-colors group"
+                >
+                  <Mail className="w-5 h-5 text-terracotta shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-medium text-charcoal block group-hover:text-terracotta transition-colors">
+                      Direct Email
+                    </span>
+                    <span className="text-xs text-charcoal-muted font-light">
+                      {ARTIST.contact.email}
+                    </span>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-terracotta" />
+                </a>
 
-            {/* Direct ways to reach */}
-            <div className="space-y-5">
-              <p className="font-hand text-lg text-charcoal/50">the quickest ways</p>
+                <a
+                  href={ARTIST.contact.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start space-x-3 p-3 rounded-xl hover:bg-canvas transition-colors group"
+                >
+                  <MessageCircle className="w-5 h-5 text-olive shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-medium text-charcoal block group-hover:text-olive transition-colors">
+                      WhatsApp Studio Direct
+                    </span>
+                    <span className="text-xs text-charcoal-muted font-light">
+                      {ARTIST.contact.whatsappNumber} (Instant Messaging)
+                    </span>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-olive" />
+                </a>
 
-              <a
-                href={`mailto:${ARTIST.contact.email}`}
-                className="flex items-center gap-3 group"
-              >
-                <Mail className="w-4 h-4 text-terracotta shrink-0" />
-                <div>
-                  <span className="text-sm text-charcoal group-hover:text-terracotta transition-colors block">
-                    email
-                  </span>
-                  <span className="text-xs text-charcoal/45 font-light">
-                    {ARTIST.contact.email}
-                  </span>
-                </div>
-              </a>
-
-              <a
-                href={ARTIST.contact.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 group"
-              >
-                <MessageCircle className="w-4 h-4 text-terracotta shrink-0" />
-                <div>
-                  <span className="text-sm text-charcoal group-hover:text-terracotta transition-colors block">
-                    whatsapp
-                  </span>
-                  <span className="text-xs text-charcoal/45 font-light">
-                    {ARTIST.contact.whatsappNumber}
-                  </span>
-                </div>
-              </a>
-
-              <a
-                href={ARTIST.contact.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 group"
-              >
-                <Instagram className="w-4 h-4 text-terracotta shrink-0" />
-                <div>
-                  <span className="text-sm text-charcoal group-hover:text-terracotta transition-colors block">
-                    instagram
-                  </span>
-                  <span className="text-xs text-charcoal/45 font-light">
-                    {ARTIST.contact.instagramHandle}
-                  </span>
-                </div>
-              </a>
+                <a
+                  href={ARTIST.contact.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start space-x-3 p-3 rounded-xl hover:bg-canvas transition-colors group"
+                >
+                  <Instagram className="w-5 h-5 text-terracotta shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-medium text-charcoal block group-hover:text-terracotta transition-colors">
+                      Instagram Journal
+                    </span>
+                    <span className="text-xs text-charcoal-muted font-light">
+                      {ARTIST.contact.instagramHandle} (Studio WIP & Stories)
+                    </span>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-terracotta" />
+                </a>
+              </div>
             </div>
 
-            {/* What to write about */}
-            <div className="space-y-4 pt-2 border-t border-charcoal/8">
-              <p className="font-hand text-lg text-charcoal/50">you might write about</p>
-              <ul className="space-y-2 text-sm text-charcoal/55 font-light leading-relaxed">
-                <li>a painting you saw and liked</li>
-                <li>a commission idea you have in mind</li>
-                <li>seeing the work in person</li>
-                <li>anything, really</li>
-              </ul>
+            {/* Studio Locations & Appointments */}
+            <div className="p-8 rounded-3xl bg-canvas-subtle border border-[#E8E2D9] space-y-4 text-xs text-charcoal-muted font-light leading-relaxed">
+              <div className="flex items-center space-x-2 text-charcoal font-medium text-sm">
+                <MapPin className="w-4 h-4 text-terracotta" />
+                <span>Studio Locations</span>
+              </div>
+              <p>
+                <strong>Istanbul Studio:</strong> Beyoğlu / Karaköy art district (by appointment).
+              </p>
+              <p>
+                <strong>London Studio:</strong> East London creative quarter (selected dates each quarter).
+              </p>
+              <div className="flex items-center space-x-2 text-charcoal font-medium text-sm pt-2">
+                <Clock className="w-4 h-4 text-terracotta" />
+                <span>Response Time</span>
+              </div>
+              <p>
+                Direct inquiries are answered personally within 24–48 hours.
+              </p>
             </div>
 
-            <p className="text-xs text-charcoal/35 font-light leading-relaxed">
-              I reply to every message personally, usually within a day or two.
-            </p>
+            {/* Acquisition Notes */}
+            <div className="p-8 rounded-3xl bg-canvas-subtle border border-[#E8E2D9] space-y-3 text-xs text-charcoal-muted font-light leading-relaxed">
+              <div className="flex items-center space-x-2 text-charcoal font-medium text-sm">
+                <ShieldCheck className="w-4 h-4 text-terracotta" />
+                <span>Acquisition Guarantees</span>
+              </div>
+              <p>
+                • All original paintings include an artist-signed Certificate of Authenticity.
+              </p>
+              <p>
+                • Custom wooden crate packaging with multi-layer archival insulation.
+              </p>
+              <p>
+                • Worldwide tracked and insured courier shipping (DHL Express / Specialist Art Handlers).
+              </p>
+            </div>
           </div>
 
-          {/* Right: form (3 cols) */}
-          <div className="lg:col-span-3">
-            <Suspense
-              fallback={
-                <div className="py-16 text-center text-sm text-charcoal/40 font-light">
-                  Loading form…
-                </div>
-              }
-            >
+          {/* Right Column: Contact Form (7 cols) */}
+          <div className="lg:col-span-7">
+            <Suspense fallback={<div className="p-12 text-center text-sm text-charcoal-muted">Loading inquiry form...</div>}>
               <ContactForm />
             </Suspense>
           </div>
         </div>
-
       </div>
     </div>
   );

@@ -1,97 +1,141 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { ArrowUpRight, ArrowDown } from 'lucide-react';
+import { ARTIST } from '@/data/artist';
+import { ARTWORKS } from '@/data/artworks';
 
 export function Hero() {
+  const heroArtwork = ARTWORKS[0]; // 'Solitude in Ochre No. 4'
+
   return (
-    <section className="relative w-full pt-8 pb-20 sm:pt-14 sm:pb-32 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 sm:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Poetic Statement & Invitation (7 cols) */}
-          <div className="lg:col-span-7 flex flex-col justify-center space-y-8 pr-0 lg:pr-6">
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-[56px] font-normal text-charcoal leading-[1.18] tracking-tight">
-              I paint fields,<br />
-              fruit on a table,<br />
-              and the colours that sit<br />
-              between them.
+    <section className="relative w-full pt-8 pb-20 sm:pt-12 sm:pb-28 overflow-hidden bg-linen-grain">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left Column: Identity, Statement & CTAs (7 cols) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 flex flex-col justify-center space-y-8"
+          >
+            {/* Eyebrow badge */}
+            <div className="inline-flex items-center space-x-3">
+              <span className="w-8 h-[1px] bg-terracotta" />
+              <span className="text-xs uppercase tracking-[0.25em] text-charcoal-muted font-medium">
+                {ARTIST.title}
+              </span>
+            </div>
+
+            {/* Main Headline */}
+            <h1 className="font-serif text-4xl sm:text-6xl xl:text-7xl font-normal text-charcoal tracking-tight leading-[1.08]">
+              Tactile silence & geological memory on Belgian linen.
             </h1>
 
-            <div className="space-y-4 max-w-lg">
-              <p className="font-serif text-lg sm:text-xl text-charcoal/80 font-normal leading-relaxed">
-                Take your time. If something stays with you,{' '}
-                <Link
-                  href="/contact"
-                  className="italic underline underline-offset-4 decoration-terracotta/50 hover:text-terracotta transition-colors"
-                >
-                  write to me
-                </Link>{' '}
-                and we can talk about it.
-              </p>
-            </div>
-          </div>
+            {/* Artistic Statement preview */}
+            <p className="text-base sm:text-lg text-charcoal-muted font-light max-w-xl leading-relaxed">
+              {ARTIST.shortBio}
+            </p>
 
-          {/* Right Column: Physical Canvases with Handwritten Marginalia (5 cols) */}
-          <div className="lg:col-span-5 relative flex justify-center items-center py-6 sm:py-10">
-            {/* Handwritten studio note with curved arrow (from Screenshot 1) */}
-            <div className="absolute -top-6 left-0 sm:-left-6 z-20 hidden sm:flex flex-col items-center">
-              <span className="font-hand text-xl text-charcoal-muted leading-tight rotate-[-4deg] max-w-[150px] text-center">
-                finished in March.<br />
-                the studio still<br />
-                smells of linseed
-              </span>
-              {/* Organic hand-drawn curved arrow pointing to canvas */}
-              <svg
-                className="w-12 h-12 text-charcoal/60 mt-1 rotate-12"
-                viewBox="0 0 50 50"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-5 pt-2">
+              <Link
+                href="/gallery"
+                className="inline-flex items-center justify-center space-x-3 px-8 py-4 rounded-full bg-charcoal text-canvas hover:bg-terracotta text-xs uppercase tracking-[0.16em] font-medium transition-all duration-300 shadow-gallery-sm hover:shadow-gallery-md group"
               >
-                <path d="M 12 10 Q 25 35 42 38" />
-                <path d="M 34 32 L 42 38 L 36 44" />
-              </svg>
+                <span>Explore Artwork</span>
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center space-x-2 px-8 py-4 rounded-full border border-charcoal/30 hover:border-charcoal hover:bg-canvas-subtle text-charcoal text-xs uppercase tracking-[0.16em] font-medium transition-all duration-300"
+              >
+                <span>Commission & Enquiries</span>
+              </Link>
             </div>
 
-            {/* Main Canvas (Leaning with physical depth & shadow) */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-64 sm:w-80 aspect-[4/5] bg-[#E8DDD0] shadow-canvas-float rounded-[3px] overflow-hidden border border-charcoal/10"
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1000&q=85"
-                alt="Color field painting — warm ochre, indigo, and terracotta"
-                fill
-                priority
-                sizes="(max-width: 640px) 260px, 320px"
-                className="object-cover object-center"
-              />
-            </motion.div>
+            {/* Metadata tags */}
+            <div className="pt-8 border-t border-[#E8E2D9] grid grid-cols-3 gap-4 text-xs text-charcoal-muted font-light">
+              <div>
+                <span className="block font-medium text-charcoal uppercase tracking-wider text-[11px]">
+                  Studio
+                </span>
+                <span className="mt-1 block">{ARTIST.location}</span>
+              </div>
+              <div>
+                <span className="block font-medium text-charcoal uppercase tracking-wider text-[11px]">
+                  Mediums
+                </span>
+                <span className="mt-1 block">Oil, wax & earth pigments</span>
+              </div>
+              <div>
+                <span className="block font-medium text-charcoal uppercase tracking-wider text-[11px]">
+                  Availability
+                </span>
+                <span className="mt-1 block">Originals & commissions</span>
+              </div>
+            </div>
+          </motion.div>
 
-            {/* Overlapping Small Canvas (Tilted slightly in front, from Screenshot 1) */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute -bottom-6 -left-2 sm:-left-8 w-36 sm:w-44 aspect-square bg-[#E8E2D8] shadow-canvas-float rounded-[2px] overflow-hidden border border-charcoal/15 rotate-[-3deg] z-10"
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=600&q=85"
-                alt="Small linen study"
-                fill
-                sizes="180px"
-                className="object-cover object-center"
-              />
-            </motion.div>
-          </div>
+          {/* Right Column: Hero Artwork Showcase (5 cols) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-5 relative"
+          >
+            {/* Museum frame presentation */}
+            <div className="relative p-3 sm:p-4 bg-canvas-elevated rounded-xl border border-[#E3DDD5] shadow-frame">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg bg-[#EDE6DF]">
+                <Image
+                  src={heroArtwork.image}
+                  alt={heroArtwork.title}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  className="object-cover object-center transition-transform duration-1000 hover:scale-[1.02]"
+                />
+              </div>
+
+              {/* Artwork caption badge */}
+              <div className="mt-4 pt-3 border-t border-[#EDE6DF] flex items-center justify-between">
+                <div>
+                  <h3 className="font-serif text-sm font-medium text-charcoal">
+                    {heroArtwork.title}
+                  </h3>
+                  <p className="text-[11px] text-charcoal-muted font-light">
+                    {heroArtwork.medium}
+                  </p>
+                </div>
+                <Link
+                  href={`/gallery/${heroArtwork.slug}`}
+                  className="text-xs uppercase tracking-wider text-terracotta hover:underline font-medium inline-flex items-center space-x-1"
+                >
+                  <span>View</span>
+                  <ArrowUpRight className="w-3 h-3" />
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Subtle scroll guide */}
+        <div className="mt-16 sm:mt-24 flex items-center justify-center">
+          <a
+            href="#featured"
+            className="inline-flex items-center space-x-2 text-[11px] uppercase tracking-[0.2em] text-charcoal-muted hover:text-charcoal transition-colors group"
+            aria-label="Scroll down to featured paintings"
+          >
+            <span>Scroll to Discover</span>
+            <ArrowDown className="w-3.5 h-3.5 animate-bounce group-hover:text-terracotta" />
+          </a>
         </div>
       </div>
     </section>
   );
 }
+
