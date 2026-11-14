@@ -46,6 +46,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/teaching" className="hover:text-charcoal hover:translate-x-1 inline-block transition-all">
+                  Art Teaching & Mentorship
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="hover:text-charcoal hover:translate-x-1 inline-block transition-all">
                   Artist Biography & Philosophy
                 </Link>

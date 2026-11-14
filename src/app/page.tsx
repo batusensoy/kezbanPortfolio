@@ -3,6 +3,7 @@ import { Hero } from '@/components/home/Hero';
 import { FeaturedArtwork } from '@/components/home/FeaturedArtwork';
 import { AboutPreview } from '@/components/home/AboutPreview';
 import { ArtisticSpecialties } from '@/components/home/ArtisticSpecialties';
+import { ArtTeachingPreview } from '@/components/home/ArtTeachingPreview';
 import { ContactCTA } from '@/components/home/ContactCTA';
 
 export default function HomePage() {
@@ -12,8 +13,8 @@ export default function HomePage() {
       <FeaturedArtwork />
       <AboutPreview />
       <ArtisticSpecialties />
+      <ArtTeachingPreview />
       <ContactCTA />
     </>
   );
 }
-

@@ -98,4 +98,37 @@ test.describe('Kezban Tanli — Fine Art Portfolio E2E Tests', () => {
     await expect(page.getByText('Full name is required')).toBeVisible();
     await expect(page.getByText('Email address is required')).toBeVisible();
   });
+
+  test('Art Teaching section on Homepage and dedicated Teaching Page with pricing & enquiry links', async ({ page }) => {
+    await page.goto('/');
+
+    // Verify Homepage Teaching Preview section and link to /teaching
+    await expect(page.getByRole('heading', { name: /Art Teaching & Portfolio Guidance/i })).toBeVisible();
+    const teachingLink = page.getByRole('link', { name: /Explore Lessons & Pricing/i });
+    await expect(teachingLink).toBeVisible();
+    await teachingLink.click();
+
+    await expect(page).toHaveURL(/.*\/teaching/);
+
+    // Verify all 4 teaching categories on /teaching
+    await expect(page.getByRole('heading', { name: 'Beginners & Hobbyists' }).first()).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Artistic Development' }).first()).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'GCSE Art Preparation' }).first()).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Art School & University Preparation' }).first()).toBeVisible();
+
+    // Verify Lessons & Pricing section and editable rate placeholders
+    await expect(page.getByRole('heading', { name: 'Lessons & Pricing' })).toBeVisible();
+    await expect(page.getByText('Contact for Pricing').first()).toBeVisible();
+
+    // Verify direct arrangements explanation
+    await expect(page.getByRole('heading', { name: /Direct Arrangements, Scheduling & Payments/i })).toBeVisible();
+
+    // Click an Enquire button for a lesson and verify pre-filled Contact Form
+    const enquireNowBtn = page.getByRole('link', { name: /Enquire Now/i }).first();
+    await enquireNowBtn.click();
+    await expect(page).toHaveURL(/.*\/contact\?lesson=Beginners%20%26%20Hobbyists/);
+
+    const subjectInput = page.locator('input#subject');
+    await expect(subjectInput).toHaveValue('Art Lesson Inquiry: "Beginners & Hobbyists"');
+  });
 });

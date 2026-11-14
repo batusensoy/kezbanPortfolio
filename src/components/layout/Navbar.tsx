@@ -10,6 +10,7 @@ import { ARTIST } from '@/data/artist';
 const NAV_ITEMS = [
   { name: 'Home', href: '/' },
   { name: 'Gallery', href: '/gallery' },
+  { name: 'Teaching', href: '/teaching' },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' },
 ];

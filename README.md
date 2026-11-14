@@ -87,6 +87,21 @@ Open `src/data/artist.ts` to customize:
 
 ---
 
+### 5. How to Customize Art Teaching Offerings & Pricing
+
+All teaching programmes and lesson rate placeholders are stored in `src/data/teaching.ts`.
+
+1. Open `src/data/teaching.ts`.
+2. Edit any of the four categories in `TEACHING_OFFERINGS` (`Beginners & Hobbyists`, `Artistic Development`, `GCSE Art Preparation`, `Art School & University Preparation`).
+3. To display specific tuition rates instead of `"Contact for Pricing"`, update the `ratePlaceholder` and `rateNote` fields on each category:
+   ```typescript
+   ratePlaceholder: 'Contact for Pricing', // or e.g. '£65 / hour'
+   rateNote: 'Single taster sessions and multi-lesson introductory blocks available upon enquiry.',
+   ```
+4. Save the file. Both the Homepage teaching preview and the dedicated `/teaching` page (including the **Lessons & Pricing** cards and pre-filled contact enquiry links) will update automatically.
+
+---
+
 ## 💻 Developer Commands
 
 ```bash

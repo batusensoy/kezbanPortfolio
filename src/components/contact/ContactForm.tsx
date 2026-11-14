@@ -8,7 +8,7 @@ import { ARTIST } from '@/data/artist';
 interface FormData {
   name: string;
   email: string;
-  inquiryType: 'Acquisition' | 'Commission' | 'General' | 'Press';
+  inquiryType: 'Acquisition' | 'Commission' | 'Lessons' | 'General' | 'Press';
   subject: string;
   message: string;
 }
@@ -17,20 +17,31 @@ export function ContactForm() {
   const searchParams = useSearchParams();
   const artworkParam = searchParams.get('artwork');
   const commissionParam = searchParams.get('commission');
+  const lessonParam = searchParams.get('lesson');
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    inquiryType: artworkParam ? 'Acquisition' : commissionParam ? 'Commission' : 'Acquisition',
+    inquiryType: artworkParam
+      ? 'Acquisition'
+      : commissionParam
+      ? 'Commission'
+      : lessonParam
+      ? 'Lessons'
+      : 'Acquisition',
     subject: artworkParam
       ? `Acquisition Inquiry: "${artworkParam}"`
       : commissionParam
       ? `Custom Commission Inquiry: Inspired by "${commissionParam}"`
+      : lessonParam
+      ? `Art Lesson Inquiry: "${lessonParam}"`
       : 'General Studio Inquiry',
     message: artworkParam
       ? `Dear ${ARTIST.name},\n\nI am interested in acquiring your artwork "${artworkParam}". Could you please provide information regarding pricing, certificate of authenticity, and shipping?\n\nThank you.`
       : commissionParam
       ? `Dear ${ARTIST.name},\n\nI would like to inquire about commissioning a custom painting inspired by "${commissionParam}".\n\nApproximate dimensions: \nPreferred color palette: \n\nLooking forward to hearing from you.`
+      : lessonParam
+      ? `Dear ${ARTIST.name},\n\nI would like to enquire about your "${lessonParam}" art lessons.\n\nStudent / Experience level: \nPreferred format (Studio or Online): \nPreferred days / times: \n\nCould you please share current availability and pricing details?\n\nThank you.`
       : '',
   });
 
@@ -52,8 +63,15 @@ export function ContactForm() {
         subject: `Custom Commission Inquiry: Inspired by "${commissionParam}"`,
         message: `Dear ${ARTIST.name},\n\nI would like to inquire about commissioning a custom painting inspired by "${commissionParam}".\n\nApproximate dimensions: \nPreferred color palette: \n\nLooking forward to hearing from you.`,
       }));
+    } else if (lessonParam) {
+      setFormData((prev) => ({
+        ...prev,
+        inquiryType: 'Lessons',
+        subject: `Art Lesson Inquiry: "${lessonParam}"`,
+        message: `Dear ${ARTIST.name},\n\nI would like to enquire about your "${lessonParam}" art lessons.\n\nStudent / Experience level: \nPreferred format (Studio or Online): \nPreferred days / times: \n\nCould you please share current availability and pricing details?\n\nThank you.`,
+      }));
     }
-  }, [artworkParam, commissionParam]);
+  }, [artworkParam, commissionParam, lessonParam]);
 
   const validate = (): boolean => {
     const newErrors: Partial<Record<keyof FormData, string>> = {};
@@ -138,8 +156,8 @@ export function ContactForm() {
           <label className="block text-xs uppercase tracking-wider font-medium text-charcoal mb-2">
             Inquiry Nature
           </label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            {(['Acquisition', 'Commission', 'General', 'Press'] as const).map((type) => (
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+            {(['Acquisition', 'Commission', 'Lessons', 'General', 'Press'] as const).map((type) => (
               <button
                 key={type}
                 type="button"
@@ -154,6 +172,8 @@ export function ContactForm() {
                   ? 'Artwork Purchase'
                   : type === 'Commission'
                   ? 'Custom Painting'
+                  : type === 'Lessons'
+                  ? 'Art Lessons'
                   : type === 'Press'
                   ? 'Press / Gallery'
                   : 'General'}
