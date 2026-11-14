@@ -116,8 +116,8 @@ test.describe('Kezban Tanli — Fine Art Portfolio E2E Tests', () => {
     await expect(page.getByRole('heading', { name: 'GCSE Art Preparation' }).first()).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Art School & University Preparation' }).first()).toBeVisible();
 
-    // Verify Lessons & Pricing section and editable rate placeholders
-    await expect(page.getByRole('heading', { name: 'Lessons & Pricing' })).toBeVisible();
+    // Verify Teaching Programmes heading and editable rate placeholders on each programme card
+    await expect(page.getByRole('heading', { name: 'Teaching Programmes & Audiences' })).toBeVisible();
     await expect(page.getByText('Contact for Pricing').first()).toBeVisible();
 
     // Verify direct arrangements explanation

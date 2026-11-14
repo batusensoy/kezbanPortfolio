@@ -59,10 +59,10 @@ export default function TeachingPage() {
               </Link>
 
               <a
-                href="#pricing"
+                href="#programmes-heading"
                 className="inline-flex items-center space-x-2 text-xs uppercase tracking-[0.16em] px-7 py-4 rounded-full border border-charcoal/25 hover:border-charcoal text-charcoal transition-colors font-medium"
               >
-                <span>View Lessons & Pricing</span>
+                <span>Explore Programmes</span>
               </a>
             </div>
 
@@ -215,72 +215,6 @@ export default function TeachingPage() {
           </div>
         </section>
 
-        {/* Lessons & Pricing Section */}
-        <section
-          id="pricing"
-          className="scroll-mt-24 space-y-12 pt-12 border-t border-[#E8E2D9]"
-          aria-labelledby="pricing-heading"
-        >
-          <div className="max-w-3xl space-y-3">
-            <span className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium block">
-              Transparent Tuition Structure
-            </span>
-            <h2
-              id="pricing-heading"
-              className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-charcoal leading-[1.15]"
-            >
-              Lessons & Pricing
-            </h2>
-            <p className="text-base text-charcoal-muted font-light leading-relaxed">
-              Tuition rates vary according to level, session duration, and whether lessons take place in the studio or online. Please enquire directly for current hourly rates and multi-session block options.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {TEACHING_OFFERINGS.map((offering) => (
-              <div
-                key={`pricing-${offering.id}`}
-                className="p-7 rounded-2xl bg-canvas-elevated border border-[#E3DDD5] shadow-gallery-sm flex flex-col justify-between space-y-6"
-              >
-                <div className="space-y-4">
-                  <span className="text-[11px] uppercase tracking-[0.18em] text-terracotta font-medium block">
-                    {offering.eyebrow}
-                  </span>
-
-                  <h3 className="font-serif text-xl font-medium text-charcoal">
-                    {offering.title}
-                  </h3>
-
-                  <div className="py-4 border-y border-[#E8E2D9]">
-                    <span className="text-[10px] uppercase tracking-widest text-charcoal-muted block mb-1">
-                      Lesson Rate
-                    </span>
-                    <p className="font-serif text-2xl text-charcoal font-normal">
-                      {offering.ratePlaceholder}
-                    </p>
-                  </div>
-
-                  <div className="space-y-2 text-xs text-charcoal-muted font-light leading-relaxed">
-                    <p>
-                      <strong className="font-medium text-charcoal">Session Length:</strong>{' '}
-                      {offering.recommendedDuration}
-                    </p>
-                    <p>{offering.rateNote}</p>
-                  </div>
-                </div>
-
-                <Link
-                  href={`/contact?lesson=${encodeURIComponent(`${offering.title} — Pricing & Availability`)}`}
-                  className="w-full inline-flex items-center justify-center space-x-2 py-3 px-4 rounded-full border border-charcoal text-charcoal hover:bg-charcoal hover:text-canvas text-xs uppercase tracking-[0.14em] font-medium transition-colors"
-                >
-                  <span>Request Pricing</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* Lesson Arrangements, Scheduling & Payments Explanation */}
         <section
           className="p-8 sm:p-14 rounded-3xl bg-[#F4EFEB] border border-[#E8E2D9] space-y-10"
@@ -333,7 +267,7 @@ export default function TeachingPage() {
           </h2>
 
           <p className="text-sm sm:text-base text-[#EDE6DF]/80 font-light max-w-xl mx-auto leading-relaxed">
-            Whether you're exploring art for personal enjoyment, developing your artistic skills, preparing for GCSE examinations, or building a portfolio for university applications, get in touch to discuss availability and lesson plans.
+            Whether you&apos;re exploring art for personal enjoyment, developing your artistic skills, preparing for GCSE examinations, or building a portfolio for university applications, get in touch to discuss availability and lesson plans.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">

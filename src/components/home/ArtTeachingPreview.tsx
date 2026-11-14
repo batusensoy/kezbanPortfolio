@@ -106,10 +106,10 @@ export function ArtTeachingPreview() {
 
           <div className="flex flex-wrap items-center gap-3 shrink-0 w-full lg:w-auto">
             <Link
-              href="/teaching#pricing"
+              href="/teaching"
               className="w-full sm:w-auto text-center px-6 py-3 rounded-full border border-charcoal/25 hover:border-charcoal text-charcoal text-xs uppercase tracking-[0.15em] font-medium transition-colors"
             >
-              View Lessons & Pricing
+              View Teaching Details
             </Link>
             <Link
               href="/contact?lesson=Art%20Lessons%20Enquiry"
