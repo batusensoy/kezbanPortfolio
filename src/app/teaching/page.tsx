@@ -333,7 +333,7 @@ export default function TeachingPage() {
           </h2>
 
           <p className="text-sm sm:text-base text-[#EDE6DF]/80 font-light max-w-xl mx-auto leading-relaxed">
-            Whether you are enquiring for yourself or as a parent seeking GCSE or university portfolio guidance for your child, get in touch directly to discuss availability and rates.
+            Whether you're exploring art for personal enjoyment, developing your artistic skills, preparing for GCSE examinations, or building a portfolio for university applications, get in touch to discuss availability and lesson plans.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
