@@ -102,6 +102,18 @@ All teaching programmes and lesson rate placeholders are stored in `src/data/tea
 
 ---
 
+### 6. Bilingual Content Management (Turkish & English)
+
+The website supports **Turkish (primary default & fallback)** and **English**, with automatic first-visit browser detection (`en*` → English, `tr*` or any other language → Turkish) and persistent manual preference via the **TR / EN** switcher in the navigation bar.
+
+All bilingual text is organized in four centralized files:
+1. **`src/i18n/translations.ts`**: All page headings, navigation items, buttons, form labels, validation messages, and email templates under `TRANSLATIONS.tr` and `TRANSLATIONS.en`.
+2. **`src/data/artist.ts`**: Artist profile, biography, and specialties in `ARTIST_TR` and `ARTIST_EN`.
+3. **`src/data/artworks.ts`**: Each artwork entry in `ARTWORKS` includes an inline `tr: { title, medium, dimensions, description, story, priceNote }` object right next to the English fields, plus `CATEGORY_LABELS` for category filters.
+4. **`src/data/teaching.ts`**: Teaching programmes and studio arrangements in `TEACHING_OFFERINGS_TR` / `TEACHING_OFFERINGS_EN` and `TEACHING_ARRANGEMENTS_TR` / `TEACHING_ARRANGEMENTS_EN`.
+
+---
+
 ## 💻 Developer Commands
 
 ```bash

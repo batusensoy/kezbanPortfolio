@@ -5,11 +5,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, ArrowDown } from 'lucide-react';
-import { ARTIST } from '@/data/artist';
-import { ARTWORKS } from '@/data/artworks';
+import { getArtist } from '@/data/artist';
+import { ARTWORKS, getLocalizedArtwork } from '@/data/artworks';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export function Hero() {
-  const heroArtwork = ARTWORKS[0]; // 'Solitude in Ochre No. 4'
+  const { locale, t } = useLanguage();
+  const artist = getArtist(locale);
+  const heroArtwork = getLocalizedArtwork(ARTWORKS[0], locale);
 
   return (
     <section className="relative w-full pt-8 pb-20 sm:pt-12 sm:pb-28 overflow-hidden bg-linen-grain">
@@ -26,18 +29,18 @@ export function Hero() {
             <div className="inline-flex items-center space-x-3">
               <span className="w-8 h-[1px] bg-terracotta" />
               <span className="text-xs uppercase tracking-[0.25em] text-charcoal-muted font-medium">
-                {ARTIST.title}
+                {artist.title}
               </span>
             </div>
 
             {/* Main Headline */}
             <h1 className="font-serif text-4xl sm:text-6xl xl:text-7xl font-normal text-charcoal tracking-tight leading-[1.08]">
-              Tactile silence & geological memory on Belgian linen.
+              {t.home.hero.headline}
             </h1>
 
             {/* Artistic Statement preview */}
             <p className="text-base sm:text-lg text-charcoal-muted font-light max-w-xl leading-relaxed">
-              {ARTIST.shortBio}
+              {artist.shortBio}
             </p>
 
             {/* CTAs */}
@@ -46,7 +49,7 @@ export function Hero() {
                 href="/gallery"
                 className="inline-flex items-center justify-center space-x-3 px-8 py-4 rounded-full bg-charcoal text-canvas hover:bg-terracotta text-xs uppercase tracking-[0.16em] font-medium transition-all duration-300 shadow-gallery-sm hover:shadow-gallery-md group"
               >
-                <span>Explore Artwork</span>
+                <span>{t.home.hero.exploreCta}</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
 
@@ -54,7 +57,7 @@ export function Hero() {
                 href="/contact"
                 className="inline-flex items-center justify-center space-x-2 px-8 py-4 rounded-full border border-charcoal/30 hover:border-charcoal hover:bg-canvas-subtle text-charcoal text-xs uppercase tracking-[0.16em] font-medium transition-all duration-300"
               >
-                <span>Commission & Enquiries</span>
+                <span>{t.home.hero.contactCta}</span>
               </Link>
             </div>
 
@@ -62,21 +65,21 @@ export function Hero() {
             <div className="pt-8 border-t border-[#E8E2D9] grid grid-cols-3 gap-4 text-xs text-charcoal-muted font-light">
               <div>
                 <span className="block font-medium text-charcoal uppercase tracking-wider text-[11px]">
-                  Studio
+                  {t.home.hero.studioLabel}
                 </span>
-                <span className="mt-1 block">{ARTIST.location}</span>
+                <span className="mt-1 block">{artist.location}</span>
               </div>
               <div>
                 <span className="block font-medium text-charcoal uppercase tracking-wider text-[11px]">
-                  Mediums
+                  {t.home.hero.mediumsLabel}
                 </span>
-                <span className="mt-1 block">Oil, wax & earth pigments</span>
+                <span className="mt-1 block">{t.home.hero.mediumsValue}</span>
               </div>
               <div>
                 <span className="block font-medium text-charcoal uppercase tracking-wider text-[11px]">
-                  Availability
+                  {t.home.hero.availabilityLabel}
                 </span>
-                <span className="mt-1 block">Originals & commissions</span>
+                <span className="mt-1 block">{t.home.hero.availabilityValue}</span>
               </div>
             </div>
           </motion.div>
@@ -115,7 +118,7 @@ export function Hero() {
                   href={`/gallery/${heroArtwork.slug}`}
                   className="text-xs uppercase tracking-wider text-terracotta hover:underline font-medium inline-flex items-center space-x-1"
                 >
-                  <span>View</span>
+                  <span>{t.home.hero.viewArtwork}</span>
                   <ArrowUpRight className="w-3 h-3" />
                 </Link>
               </div>
@@ -128,9 +131,9 @@ export function Hero() {
           <a
             href="#featured"
             className="inline-flex items-center space-x-2 text-[11px] uppercase tracking-[0.2em] text-charcoal-muted hover:text-charcoal transition-colors group"
-            aria-label="Scroll down to featured paintings"
+            aria-label={t.home.hero.scrollGuide}
           >
-            <span>Scroll to Discover</span>
+            <span>{t.home.hero.scrollGuide}</span>
             <ArrowDown className="w-3.5 h-3.5 animate-bounce group-hover:text-terracotta" />
           </a>
         </div>
@@ -138,4 +141,3 @@ export function Hero() {
     </section>
   );
 }
-

@@ -1,5 +1,6 @@
+'use client';
+
 import React from 'react';
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -15,17 +16,18 @@ import {
   MessageCircle,
   CalendarCheck,
 } from 'lucide-react';
-import { ARTIST } from '@/data/artist';
-import { TEACHING_OFFERINGS, TEACHING_ARRANGEMENTS } from '@/data/teaching';
-
-export const metadata: Metadata = {
-  title: 'Art Teaching, Portfolio Mentorship & Private Lessons',
-  description: `Private art lessons, painting tuition, GCSE Art support, and university portfolio preparation with contemporary visual artist ${ARTIST.name}.`,
-};
+import { getArtist } from '@/data/artist';
+import { getTeachingOfferings, getTeachingArrangements } from '@/data/teaching';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 const OFFERING_ICONS = [Palette, Compass, BookOpen, GraduationCap];
 
 export default function TeachingPage() {
+  const { locale, t } = useLanguage();
+  const artist = getArtist(locale);
+  const offerings = getTeachingOfferings(locale);
+  const arrangements = getTeachingArrangements(locale);
+
   return (
     <div className="py-12 sm:py-20 bg-canvas min-h-screen">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-20 sm:space-y-28">
@@ -33,28 +35,24 @@ export default function TeachingPage() {
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-7 space-y-6">
             <span className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium block">
-              Private Tuition & Academic Mentorship
+              {t.teaching.eyebrow}
             </span>
 
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-charcoal tracking-tight leading-[1.12]">
-              Art Teaching & Portfolio Guidance
+              {t.teaching.title}
             </h1>
 
             <div className="space-y-4 text-base sm:text-lg text-charcoal-muted leading-relaxed font-light">
-              <p>
-                Alongside her studio practice, {ARTIST.name} offers individualized art lessons and mentorship for students of all ages and ambitions—from complete beginners discovering the joy of painting to aspiring artists preparing GCSE coursework or university portfolios.
-              </p>
-              <p>
-                Rooted in traditional material craft and contemporary visual inquiry, lessons are tailored to each student&apos;s personal pace, creative curiosity, and academic objectives.
-              </p>
+              <p>{t.teaching.introP1(artist.name)}</p>
+              <p>{t.teaching.introP2}</p>
             </div>
 
             <div className="pt-2 flex flex-wrap items-center gap-4">
               <Link
-                href="/contact?lesson=Art%20Lessons%20Enquiry"
+                href={`/contact?lesson=${encodeURIComponent(t.teaching.emailSubject)}`}
                 className="inline-flex items-center space-x-2.5 text-xs uppercase tracking-[0.16em] px-7 py-4 rounded-full bg-charcoal text-canvas hover:bg-terracotta transition-colors font-medium group"
               >
-                <span>Enquire About Lessons</span>
+                <span>{t.teaching.enquireBtn}</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
 
@@ -62,18 +60,18 @@ export default function TeachingPage() {
                 href="#programmes-heading"
                 className="inline-flex items-center space-x-2 text-xs uppercase tracking-[0.16em] px-7 py-4 rounded-full border border-charcoal/25 hover:border-charcoal text-charcoal transition-colors font-medium"
               >
-                <span>Explore Programmes</span>
+                <span>{t.teaching.exploreProgrammesBtn}</span>
               </a>
             </div>
 
             <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-charcoal-muted font-light border-t border-[#E8E2D9]">
               <div className="flex items-center space-x-2">
                 <MapPin className="w-4 h-4 text-terracotta shrink-0" aria-hidden="true" />
-                <span>In-Person ({ARTIST.location}) & Online Live Tuition</span>
+                <span>{t.teaching.locationBadge(artist.location)}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Clock className="w-4 h-4 text-terracotta shrink-0" aria-hidden="true" />
-                <span>Flexible Weekly, Fortnightly & Holiday Sessions</span>
+                <span>{t.teaching.scheduleBadge}</span>
               </div>
             </div>
           </div>
@@ -84,7 +82,7 @@ export default function TeachingPage() {
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-[#EDE6DF]">
                 <Image
                   src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1000&q=85"
-                  alt="Art studio brushes, pigments, and canvases prepared for a painting lesson"
+                  alt={t.teaching.title}
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 42vw"
@@ -92,8 +90,8 @@ export default function TeachingPage() {
                 />
               </div>
               <div className="mt-4 pt-3 border-t border-[#EDE6DF] flex items-center justify-between text-xs text-charcoal-muted font-light px-1">
-                <span>One-to-One Studio & Online Tuition</span>
-                <span className="italic font-serif">All Levels Welcome</span>
+                <span>{t.teaching.imageCaptionLeft}</span>
+                <span className="italic font-serif">{t.teaching.imageCaptionRight}</span>
               </div>
             </div>
           </div>
@@ -103,21 +101,21 @@ export default function TeachingPage() {
         <section className="space-y-12 pt-8 border-t border-[#E8E2D9]" aria-labelledby="programmes-heading">
           <div className="max-w-3xl space-y-3">
             <span className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium block">
-              Tailored Pathways
+              {t.teaching.programmesEyebrow}
             </span>
             <h2
               id="programmes-heading"
               className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-charcoal leading-[1.15]"
             >
-              Teaching Programmes & Audiences
+              {t.teaching.programmesTitle}
             </h2>
             <p className="text-base text-charcoal-muted font-light leading-relaxed">
-              Every student works from a personalized study plan designed around their experience level, preferred mediums, and creative or academic goals.
+              {t.teaching.programmesDesc}
             </p>
           </div>
 
           <div className="space-y-10">
-            {TEACHING_OFFERINGS.map((offering, idx) => {
+            {offerings.map((offering, idx) => {
               const IconComponent = OFFERING_ICONS[idx % OFFERING_ICONS.length];
               return (
                 <article
@@ -142,7 +140,7 @@ export default function TeachingPage() {
                       </h3>
 
                       <p className="text-xs sm:text-sm text-charcoal bg-canvas px-4 py-2.5 rounded-xl border border-[#E3DDD5] inline-block">
-                        <strong className="font-medium">Who it is for:</strong>{' '}
+                        <strong className="font-medium">{t.teaching.whoItIsForLabel}</strong>{' '}
                         <span className="text-charcoal-muted font-light">{offering.audience}</span>
                       </p>
 
@@ -153,13 +151,13 @@ export default function TeachingPage() {
                       <div className="pt-2 flex flex-wrap gap-6 text-xs text-charcoal-muted font-light">
                         <div>
                           <span className="uppercase tracking-wider text-[10px] text-charcoal font-medium block mb-1">
-                            Format
+                            {t.teaching.formatLabel}
                           </span>
                           <span>{offering.sessionFormat}</span>
                         </div>
                         <div>
                           <span className="uppercase tracking-wider text-[10px] text-charcoal font-medium block mb-1">
-                            Recommended Duration
+                            {t.teaching.durationLabel}
                           </span>
                           <span>{offering.recommendedDuration}</span>
                         </div>
@@ -171,7 +169,7 @@ export default function TeachingPage() {
                       <div className="space-y-4">
                         <div className="flex items-center justify-between">
                           <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-charcoal">
-                            What Lessons Cover
+                            {t.teaching.whatLessonsCoverHeading}
                           </h4>
                           <IconComponent className="w-5 h-5 text-terracotta" aria-hidden="true" />
                         </div>
@@ -192,7 +190,7 @@ export default function TeachingPage() {
                       <div className="pt-5 border-t border-[#E8E2D9] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
                           <span className="text-[10px] uppercase tracking-wider text-charcoal-muted block">
-                            Rate
+                            {t.teaching.rateLabel}
                           </span>
                           <span className="font-serif text-base font-medium text-charcoal">
                             {offering.ratePlaceholder}
@@ -203,7 +201,7 @@ export default function TeachingPage() {
                           href={`/contact?lesson=${encodeURIComponent(offering.title)}`}
                           className="inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-full bg-charcoal text-canvas hover:bg-terracotta text-xs uppercase tracking-[0.15em] font-medium transition-colors group"
                         >
-                          <span>Enquire Now</span>
+                          <span>{t.teaching.enquireNowBtn}</span>
                           <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </Link>
                       </div>
@@ -222,27 +220,29 @@ export default function TeachingPage() {
         >
           <div className="max-w-3xl space-y-3">
             <span className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium block">
-              How Lessons Work
+              {t.teaching.arrangementsEyebrow}
             </span>
             <h2
               id="arrangements-heading"
               className="font-serif text-3xl sm:text-4xl font-normal text-charcoal"
             >
-              Direct Arrangements, Scheduling & Payments
+              {t.teaching.arrangementsTitle}
             </h2>
             <p className="text-sm sm:text-base text-charcoal-muted font-light leading-relaxed">
-              To maintain a personal and attentive teaching environment, lessons are not booked through automated online calendars or third-party payment portals. Every arrangement is made directly with {ARTIST.name}.
+              {t.teaching.arrangementsDesc(artist.name)}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {TEACHING_ARRANGEMENTS.map((item, idx) => (
+            {arrangements.map((item, idx) => (
               <div
                 key={item.title}
                 className="p-6 rounded-2xl bg-canvas border border-[#E3DDD5] space-y-3"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono text-terracotta">Step 0{idx + 1}</span>
+                  <span className="text-xs font-mono text-terracotta">
+                    {t.teaching.stepPrefix} 0{idx + 1}
+                  </span>
                   <CalendarCheck className="w-4 h-4 text-terracotta" aria-hidden="true" />
                 </div>
                 <h3 className="font-serif text-lg font-medium text-charcoal">
@@ -259,42 +259,42 @@ export default function TeachingPage() {
         {/* Bottom Contact CTA for Students & Parents */}
         <section className="py-16 sm:py-20 px-8 sm:px-14 rounded-3xl bg-[#1C1B1A] text-canvas text-center space-y-8">
           <span className="text-xs uppercase tracking-[0.3em] text-[#C49746] font-medium block">
-            Begin Your Creative Journey
+            {t.teaching.ctaEyebrow}
           </span>
 
           <h2 className="font-serif text-3xl sm:text-5xl font-normal text-[#FAF8F5] max-w-2xl mx-auto leading-[1.15]">
-            Enquire about private art lessons or portfolio mentorship.
+            {t.teaching.ctaTitle}
           </h2>
 
           <p className="text-sm sm:text-base text-[#EDE6DF]/80 font-light max-w-xl mx-auto leading-relaxed">
-            Whether you&apos;re exploring art for personal enjoyment, developing your artistic skills, preparing for GCSE examinations, or building a portfolio for university applications, get in touch to discuss availability and lesson plans.
+            {t.teaching.ctaDesc}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <Link
-              href="/contact?lesson=Art%20Lessons%20Enquiry"
+              href={`/contact?lesson=${encodeURIComponent(t.teaching.emailSubject)}`}
               className="w-full sm:w-auto inline-flex items-center justify-center space-x-2.5 px-8 py-4 rounded-full bg-canvas text-charcoal hover:bg-[#C49746] text-xs uppercase tracking-[0.16em] font-medium transition-colors"
             >
-              <span>Enquire via Contact Form</span>
+              <span>{t.teaching.ctaFormBtn}</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
 
             <a
-              href={`mailto:${ARTIST.contact.email}?subject=${encodeURIComponent('Art Lessons Enquiry')}`}
+              href={`mailto:${artist.contact.email}?subject=${encodeURIComponent(t.teaching.emailSubject)}`}
               className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-8 py-4 rounded-full border border-canvas/30 hover:border-canvas hover:bg-canvas/10 text-canvas text-xs uppercase tracking-[0.16em] font-medium transition-colors"
             >
               <Mail className="w-4 h-4 text-[#C49746]" />
-              <span>{ARTIST.contact.email}</span>
+              <span>{artist.contact.email}</span>
             </a>
 
             <a
-              href={ARTIST.contact.whatsappUrl}
+              href={artist.contact.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-4 rounded-full border border-canvas/20 hover:border-canvas/40 text-canvas/80 hover:text-canvas text-xs uppercase tracking-[0.16em] font-medium transition-colors"
             >
               <MessageCircle className="w-4 h-4 text-[#C49746]" />
-              <span>WhatsApp Direct</span>
+              <span>{t.teaching.ctaWhatsappBtn}</span>
             </a>
           </div>
         </section>
@@ -302,4 +302,3 @@ export default function TeachingPage() {
     </div>
   );
 }
-

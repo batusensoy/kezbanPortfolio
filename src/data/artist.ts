@@ -1,3 +1,5 @@
+import type { Locale } from '@/i18n/translations';
+
 export interface Exhibition {
   year: string;
   title: string;
@@ -35,7 +37,7 @@ export interface ArtistProfile {
   exhibitions: Exhibition[];
 }
 
-export const ARTIST: ArtistProfile = {
+export const ARTIST_EN: ArtistProfile = {
   name: 'Kezban Tanli',
   title: 'Contemporary Visual Artist & Painter',
   pronouns: 'she/her',
@@ -139,3 +141,50 @@ export const ARTIST: ArtistProfile = {
     },
   ],
 };
+
+export const ARTIST_TR: ArtistProfile = {
+  ...ARTIST_EN,
+  title: 'Çağdaş Görsel Sanatçı & Ressam',
+  location: 'İstanbul & Londra',
+  shortBio:
+    'Kezban Tanli; ham mineral dokuları, derinlikli renk alanlarını ve dingin bir tefekkürü bir araya getiren çağdaş bir görsel sanatçıdır. Doğal toprak pigmentleri, soğuk balmumu ve Belçika keteni ile ürettiği tablolarında doğanın dokunsal izlerini ve ışığın sessiz mimarisini tuvale taşır.',
+  artisticStatement:
+    'Tablolarım yaşayan yüzeyler olarak inşa edilir; sabrın ve duyusal farkındalığın anıtlarıdır. Elde öğütülmüş ham toprak boyalarını, kireçtaşı yıkamalarını ve yarı saydam yağlıboyaları katmanlandırarak jeolojik zaman ile insan duyarlılığı arasındaki sessiz diyaloğu görünür kılmayı amaçlıyorum. Her tuval, biçim ile sessizlik arasındaki boşlukta durup nefes almaya bir davettir.',
+  contact: {
+    ...ARTIST_EN.contact,
+    studioVisitNote:
+      'İstanbul ve Londra stüdyolarımıza özel ziyaretler randevu ile gerçekleştirilmektedir. Tüm orijinal eserler için dünya çapında sigortalı sanat eseri gönderimi mevcuttur.',
+  },
+  specialties: [
+    {
+      title: 'Belçika Keteni Üzerine Anıtsal Yağlıboya',
+      description:
+        'Yüksek tavanlı mimari mekânlar, özel konutlar ve kurumsal koleksiyonlar için tasarlanmış büyük ölçekli atmosferik kompozisyonlar.',
+      mediums: 'Elde öğütülmüş yağlıboya, ceviz yağı, Belçika keteni',
+    },
+    {
+      title: 'Dokusal Toprak & Mineral Soyutlama',
+      description:
+        'Traverten tozu, soğuk balmumu ve organik pigmentlerin heykelsi impasto derinliğiyle buluştuğu çok katmanlı dokunsal rölyefler.',
+      mediums: 'Soğuk balmumu, ham pigmentler, mermer tozu, tuval',
+    },
+    {
+      title: 'Mekâna Özel Sipariş Eserler',
+      description:
+        'Özel koleksiyonerler ve seçkin iç mekânlar için ölçek, duygusal ton ve renk paleti uyumuyla özel olarak kurgulanan ortak projeler.',
+      mediums: 'Özel renk paleti & mimari ölçek etütleri',
+    },
+    {
+      title: 'El Yapımı Kâğıt & Mürekkep Etütleri',
+      description:
+        '300 g/m² el yapımı pamuklu kâğıt ve yarı saydam Japon washi kâğıdı üzerine içten, spontane fırça çalışmaları.',
+      mediums: 'Ceviz mürekkebi, kuru pigment, el yapımı kâğıt',
+    },
+  ],
+};
+
+export const ARTIST: ArtistProfile = ARTIST_EN;
+
+export function getArtist(locale: Locale): ArtistProfile {
+  return locale === 'tr' ? ARTIST_TR : ARTIST_EN;
+}

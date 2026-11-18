@@ -6,11 +6,13 @@ import { ARTWORKS, ArtworkCategory } from '@/data/artworks';
 import { ArtworkCard } from '@/components/ui/ArtworkCard';
 import { ArtworkFilters } from '@/components/gallery/ArtworkFilters';
 import { ArtworkLightbox } from '@/components/gallery/ArtworkLightbox';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export function ArtworkGrid() {
   const [activeCategory, setActiveCategory] = useState<'All' | ArtworkCategory>('All');
   const [statusFilter, setStatusFilter] = useState<'all' | 'available'>('all');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   const filteredArtworks = useMemo(() => {
     return ARTWORKS.filter((artwork) => {
@@ -62,10 +64,10 @@ export function ArtworkGrid() {
         /* Empty State */
         <div className="py-24 text-center space-y-4">
           <p className="font-serif text-2xl text-charcoal">
-            No paintings match this current selection.
+            {t.gallery.emptyTitle}
           </p>
           <p className="text-sm text-charcoal-muted font-light max-w-md mx-auto">
-            Try choosing a different medium category or clearing the availability filter to view the complete catalog.
+            {t.gallery.emptyDesc}
           </p>
           <button
             onClick={() => {
@@ -74,7 +76,7 @@ export function ArtworkGrid() {
             }}
             className="mt-4 px-6 py-2.5 rounded-full border border-charcoal/30 text-xs uppercase tracking-wider hover:bg-charcoal hover:text-canvas transition-colors font-medium"
           >
-            Reset Filters
+            {t.gallery.resetFiltersBtn}
           </button>
         </div>
       )}

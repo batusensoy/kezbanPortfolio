@@ -5,20 +5,23 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { ARTIST } from '@/data/artist';
-
-const NAV_ITEMS = [
-  { name: 'Home', href: '/' },
-  { name: 'Gallery', href: '/gallery' },
-  { name: 'Teaching', href: '/teaching' },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
-];
+import { getArtist } from '@/data/artist';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { locale, setLocale, t } = useLanguage();
+  const artist = getArtist(locale);
+
+  const navItems = [
+    { name: t.nav.home, href: '/' },
+    { name: t.nav.gallery, href: '/gallery' },
+    { name: t.nav.teaching, href: '/teaching' },
+    { name: t.nav.about, href: '/about' },
+    { name: t.nav.contact, href: '/contact' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +48,42 @@ export function Navbar() {
     };
   }, [isOpen]);
 
+  const renderLanguageSwitcher = (variant: 'desktop' | 'mobile') => (
+    <div
+      role="group"
+      aria-label={t.nav.languageSwitcherLabel}
+      className="inline-flex items-center rounded-full border border-[#E3DDD5] bg-canvas-subtle/80 p-0.5 text-xs font-medium tracking-wider"
+      data-testid={`language-switcher-${variant}`}
+    >
+      <button
+        type="button"
+        onClick={() => setLocale('tr')}
+        aria-pressed={locale === 'tr'}
+        data-testid={`lang-tr-${variant}`}
+        className={`px-2.5 py-1 rounded-full transition-colors ${
+          locale === 'tr'
+            ? 'bg-charcoal text-canvas shadow-sm'
+            : 'text-charcoal-muted hover:text-charcoal'
+        }`}
+      >
+        TR
+      </button>
+      <button
+        type="button"
+        onClick={() => setLocale('en')}
+        aria-pressed={locale === 'en'}
+        data-testid={`lang-en-${variant}`}
+        className={`px-2.5 py-1 rounded-full transition-colors ${
+          locale === 'en'
+            ? 'bg-charcoal text-canvas shadow-sm'
+            : 'text-charcoal-muted hover:text-charcoal'
+        }`}
+      >
+        EN
+      </button>
+    </div>
+  );
+
   return (
     <>
       <header
@@ -59,23 +98,23 @@ export function Navbar() {
           <Link
             href="/"
             className="group flex flex-col focus:outline-none"
-            aria-label={`${ARTIST.name} - Home`}
+            aria-label={`${artist.name} - ${t.nav.home}`}
           >
             <span className="font-serif text-xl sm:text-2xl tracking-[0.12em] font-medium text-charcoal group-hover:text-terracotta transition-colors uppercase">
-              {ARTIST.name}
+              {artist.name}
             </span>
             <span className="text-[10px] sm:text-xs tracking-[0.25em] text-charcoal-muted uppercase font-sans font-normal mt-0.5">
-              Studio & Fine Art
+              {t.nav.brandSubtitle}
             </span>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center space-x-10" aria-label="Main Navigation">
-            {NAV_ITEMS.map((item) => {
+          <nav className="hidden md:flex items-center space-x-8 lg:space-x-10" aria-label="Main Navigation">
+            {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
-                  key={item.name}
+                  key={item.href}
                   href={item.href}
                   className={`relative text-sm tracking-[0.08em] uppercase transition-colors duration-200 py-1 ${
                     isActive
@@ -96,27 +135,33 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Desktop Right CTA */}
-          <div className="hidden md:flex items-center space-x-6">
+          {/* Desktop Right: Language Switcher & CTA */}
+          <div className="hidden md:flex items-center space-x-4">
+            {renderLanguageSwitcher('desktop')}
+
             <Link
               href="/contact"
               className="inline-flex items-center space-x-2 text-xs uppercase tracking-[0.15em] px-5 py-2.5 rounded-full border border-charcoal/20 hover:border-charcoal hover:bg-charcoal hover:text-canvas transition-all duration-300 font-medium group"
             >
-              <span>Enquire</span>
+              <span>{t.nav.enquire}</span>
               <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle Button */}
-          <button
-            type="button"
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-charcoal hover:text-terracotta transition-colors focus:outline-none"
-            aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            aria-expanded={isOpen}
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile Controls: Language Switcher & Menu Toggle Button */}
+          <div className="flex md:hidden items-center space-x-2">
+            {renderLanguageSwitcher('mobile')}
+
+            <button
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 text-charcoal hover:text-terracotta transition-colors focus:outline-none"
+              aria-label={isOpen ? t.nav.closeMenu : t.nav.openMenu}
+              aria-expanded={isOpen}
+            >
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -143,12 +188,12 @@ export function Navbar() {
                 {/* Header inside drawer */}
                 <div className="flex items-center justify-between pb-8 border-b border-[#E8E2D9]">
                   <span className="font-serif text-lg tracking-[0.1em] font-medium text-charcoal uppercase">
-                    {ARTIST.name}
+                    {artist.name}
                   </span>
                   <button
                     onClick={() => setIsOpen(false)}
                     className="p-2 text-charcoal-muted hover:text-charcoal"
-                    aria-label="Close menu"
+                    aria-label={t.nav.closeMenu}
                   >
                     <X className="w-6 h-6" />
                   </button>
@@ -156,11 +201,11 @@ export function Navbar() {
 
                 {/* Mobile Links */}
                 <nav className="flex flex-col space-y-6 mt-8" aria-label="Mobile Navigation">
-                  {NAV_ITEMS.map((item, idx) => {
+                  {navItems.map((item, idx) => {
                     const isActive = pathname === item.href;
                     return (
                       <motion.div
-                        key={item.name}
+                        key={item.href}
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.05 * idx, duration: 0.25 }}
@@ -192,19 +237,19 @@ export function Navbar() {
                   onClick={() => setIsOpen(false)}
                   className="w-full inline-flex items-center justify-center space-x-2 py-3 rounded-full bg-charcoal text-canvas text-xs uppercase tracking-[0.15em] font-medium hover:bg-terracotta transition-colors"
                 >
-                  <span>Commission & Inquiries</span>
+                  <span>{t.nav.mobileCta}</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </Link>
 
                 <div className="text-xs text-charcoal-muted flex justify-between pt-2">
-                  <span>{ARTIST.location}</span>
+                  <span>{artist.location}</span>
                   <a
-                    href={ARTIST.contact.instagramUrl}
+                    href={artist.contact.instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-charcoal underline"
                   >
-                    {ARTIST.contact.instagramHandle}
+                    {artist.contact.instagramHandle}
                   </a>
                 </div>
               </div>

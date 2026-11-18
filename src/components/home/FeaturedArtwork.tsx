@@ -1,21 +1,25 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ArtworkCard } from '@/components/ui/ArtworkCard';
 import { getFeaturedArtworks, ARTWORKS } from '@/data/artworks';
 import { ArrowUpRight } from 'lucide-react';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 export function FeaturedArtwork() {
   const featured = getFeaturedArtworks();
+  const { t } = useLanguage();
 
   return (
     <section id="featured" className="py-20 sm:py-28 bg-canvas">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <SectionHeading
-          eyebrow="Selected Works"
-          title="Curated Paintings & Studies"
-          description="A selection of recent canvases investigating mineral textures, Mediterranean earth tones, and contemplative negative space."
-          linkText="View All Artworks"
+          eyebrow={t.home.featured.eyebrow}
+          title={t.home.featured.title}
+          description={t.home.featured.description}
+          linkText={t.home.featured.viewAllLink}
           linkHref="/gallery"
         />
 
@@ -36,7 +40,7 @@ export function FeaturedArtwork() {
             href="/gallery"
             className="inline-flex items-center space-x-3 px-8 py-4 rounded-full border border-charcoal/20 hover:border-charcoal hover:bg-charcoal hover:text-canvas text-xs uppercase tracking-[0.16em] font-medium transition-all duration-300 group"
           >
-            <span>Explore All {ARTWORKS.length} Artworks in the Archive</span>
+            <span>{t.home.featured.exploreArchiveBtn(ARTWORKS.length)}</span>
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </div>
@@ -44,4 +48,3 @@ export function FeaturedArtwork() {
     </section>
   );
 }
-

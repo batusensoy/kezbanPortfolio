@@ -3,6 +3,7 @@ import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { AmbientSpotlight } from '@/components/ui/AmbientSpotlight';
+import { LanguageProvider } from '@/i18n/LanguageContext';
 import { ARTIST } from '@/data/artist';
 
 export const metadata: Metadata = {
@@ -57,12 +58,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="tr">
       <body className="bg-canvas text-charcoal min-h-screen flex flex-col font-sans selection:bg-[#E6D7C8] selection:text-charcoal antialiased">
-        <AmbientSpotlight />
-        <Navbar />
-        <main className="flex-1 w-full">{children}</main>
-        <Footer />
+        <LanguageProvider>
+          <AmbientSpotlight />
+          <Navbar />
+          <main className="flex-1 w-full">{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

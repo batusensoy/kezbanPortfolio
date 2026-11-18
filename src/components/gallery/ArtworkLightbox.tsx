@@ -4,8 +4,9 @@ import React, { useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight, ArrowUpRight, Maximize2 } from 'lucide-react';
-import { Artwork } from '@/data/artworks';
+import { X, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { Artwork, getLocalizedArtwork, getCategoryLabel } from '@/data/artworks';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 interface ArtworkLightboxProps {
   artworks: Artwork[];
@@ -20,8 +21,9 @@ export function ArtworkLightbox({
   onClose,
   onNavigate,
 }: ArtworkLightboxProps) {
+  const { locale, t } = useLanguage();
   const isOpen = currentIndex !== null && artworks[currentIndex] !== undefined;
-  const currentArtwork = isOpen ? artworks[currentIndex] : null;
+  const currentArtwork = isOpen ? getLocalizedArtwork(artworks[currentIndex], locale) : null;
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -68,14 +70,14 @@ export function ArtworkLightbox({
               <span className="mx-2">/</span>
               <span>{artworks.length}</span>
               <span className="ml-4 hidden sm:inline text-canvas/50">
-                Use arrow keys to navigate • Esc to exit
+                {t.gallery.lightbox.keyboardHint}
               </span>
             </div>
 
             <button
               onClick={onClose}
               className="p-2 rounded-full bg-canvas/10 hover:bg-canvas/20 text-canvas transition-colors focus:outline-none"
-              aria-label="Close full-screen lightbox"
+              aria-label={t.gallery.lightbox.closeAria}
             >
               <X className="w-5 h-5" />
             </button>
@@ -88,7 +90,7 @@ export function ArtworkLightbox({
               onNavigate((currentIndex! - 1 + artworks.length) % artworks.length);
             }}
             className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-canvas/10 hover:bg-canvas/25 text-canvas transition-colors z-10"
-            aria-label="Previous artwork"
+            aria-label={t.gallery.lightbox.prevAria}
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -99,7 +101,7 @@ export function ArtworkLightbox({
               onNavigate((currentIndex! + 1) % artworks.length);
             }}
             className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-canvas/10 hover:bg-canvas/25 text-canvas transition-colors z-10"
-            aria-label="Next artwork"
+            aria-label={t.gallery.lightbox.nextAria}
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -132,7 +134,7 @@ export function ArtworkLightbox({
             <div className="w-full md:w-80 p-6 sm:p-8 flex flex-col justify-between border-t md:border-t-0 md:border-l border-white/10 bg-[#141312]">
               <div className="space-y-4">
                 <span className="text-[10px] uppercase tracking-[0.25em] text-[#C49746] font-medium block">
-                  {currentArtwork.category}
+                  {getCategoryLabel(currentArtwork.category, locale)}
                 </span>
 
                 <h3 className="font-serif text-2xl font-normal text-white">
@@ -145,9 +147,11 @@ export function ArtworkLightbox({
 
                 <div className="text-xs text-white/50 space-y-1 font-sans pt-2 border-t border-white/10">
                   <p>{currentArtwork.dimensions}</p>
-                  <p>Year: {currentArtwork.year}</p>
+                  <p>
+                    {t.gallery.lightbox.yearLabel} {currentArtwork.year}
+                  </p>
                   <p className="text-[#C49746] font-medium pt-1">
-                    Status: {currentArtwork.status === 'Sold' ? 'Private Collection' : currentArtwork.status}
+                    {t.gallery.lightbox.statusLabel} {t.gallery.status[currentArtwork.status]}
                   </p>
                 </div>
 
@@ -163,7 +167,7 @@ export function ArtworkLightbox({
                   onClick={onClose}
                   className="w-full inline-flex items-center justify-center space-x-2 py-3 rounded-full bg-white text-charcoal hover:bg-[#C49746] hover:text-black text-xs uppercase tracking-wider font-medium transition-colors"
                 >
-                  <span>View Full Details Page</span>
+                  <span>{t.gallery.lightbox.viewDetailsBtn}</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </Link>
 
@@ -172,7 +176,7 @@ export function ArtworkLightbox({
                   onClick={onClose}
                   className="w-full inline-flex items-center justify-center space-x-2 py-2.5 rounded-full border border-white/20 hover:border-white/40 text-xs uppercase tracking-wider text-white/80 hover:text-white transition-colors"
                 >
-                  <span>Direct Acquisition Inquiry</span>
+                  <span>{t.gallery.lightbox.directInquiryBtn}</span>
                 </Link>
               </div>
             </div>
@@ -182,4 +186,3 @@ export function ArtworkLightbox({
     </AnimatePresence>
   );
 }
-

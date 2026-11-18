@@ -5,7 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { Artwork } from '@/data/artworks';
+import { Artwork, getLocalizedArtwork } from '@/data/artworks';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 interface ArtworkCardProps {
   artwork: Artwork;
@@ -13,26 +14,29 @@ interface ArtworkCardProps {
   onOpenLightbox?: () => void;
 }
 
-export function ArtworkCard({ artwork, priority = false, onOpenLightbox }: ArtworkCardProps) {
+export function ArtworkCard({ artwork: rawArtwork, priority = false, onOpenLightbox }: ArtworkCardProps) {
+  const { locale, t } = useLanguage();
+  const artwork = getLocalizedArtwork(rawArtwork, locale);
+
   const getStatusBadge = (status: Artwork['status']) => {
     switch (status) {
       case 'Available':
         return (
           <span className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-medium bg-canvas/90 backdrop-blur-sm text-charcoal border border-[#E8E2D9]">
             <span className="w-1.5 h-1.5 rounded-full bg-olive animate-pulse" />
-            <span>Available</span>
+            <span>{t.gallery.status.Available}</span>
           </span>
         );
       case 'Sold':
         return (
           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-medium bg-charcoal/80 backdrop-blur-sm text-canvas">
-            Private Collection
+            {t.gallery.status.Sold}
           </span>
         );
       case 'Reserved':
         return (
           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-medium bg-ochre/20 backdrop-blur-sm text-charcoal border border-ochre/40">
-            Reserved
+            {t.gallery.status.Reserved}
           </span>
         );
       default:
@@ -51,7 +55,7 @@ export function ArtworkCard({ artwork, priority = false, onOpenLightbox }: Artwo
       <Link
         href={`/gallery/${artwork.slug}`}
         className="block relative overflow-hidden rounded-lg bg-[#EFE9E2] border border-[#E8E2D9] shadow-gallery-sm group-hover:shadow-gallery-md transition-all duration-500"
-        aria-label={`View details for ${artwork.title}`}
+        aria-label={artwork.title}
       >
         {/* Aspect ratio container based on orientation */}
         <div
@@ -91,8 +95,8 @@ export function ArtworkCard({ artwork, priority = false, onOpenLightbox }: Artwo
                   onOpenLightbox();
                 }}
                 className="w-9 h-9 rounded-full bg-canvas/90 backdrop-blur-sm text-charcoal hover:bg-charcoal hover:text-canvas flex items-center justify-center transition-colors shadow-sm"
-                aria-label={`Expand and view high-resolution image of ${artwork.title}`}
-                title="View High-Resolution Lightbox"
+                aria-label={t.gallery.lightbox.expandAria(artwork.title)}
+                title={t.gallery.lightbox.expandTitle}
               >
                 <span className="text-xs font-serif font-bold">⛶</span>
               </button>
@@ -130,4 +134,3 @@ export function ArtworkCard({ artwork, priority = false, onOpenLightbox }: Artwo
     </motion.article>
   );
 }
-

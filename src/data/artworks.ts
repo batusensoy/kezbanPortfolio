@@ -1,3 +1,5 @@
+import type { Locale } from '@/i18n/translations';
+
 export type ArtworkCategory =
   | 'Oil on Canvas'
   | 'Abstract Expressionism'
@@ -6,6 +8,15 @@ export type ArtworkCategory =
   | 'Paper Studies';
 
 export type AvailabilityStatus = 'Available' | 'Sold' | 'Reserved' | 'In Exhibition';
+
+export interface ArtworkTranslation {
+  title: string;
+  medium: string;
+  dimensions?: string;
+  description: string;
+  story?: string;
+  priceNote?: string;
+}
 
 export interface Artwork {
   id: string;
@@ -22,6 +33,8 @@ export interface Artwork {
   featured?: boolean;
   priceNote?: string;
   orientation?: 'portrait' | 'landscape' | 'square';
+  /** Turkish translations for this artwork (edit alongside English fields) */
+  tr?: ArtworkTranslation;
 }
 
 export const ARTWORK_CATEGORIES: ('All' | ArtworkCategory)[] = [
@@ -32,6 +45,29 @@ export const ARTWORK_CATEGORIES: ('All' | ArtworkCategory)[] = [
   'Atmospheric Landscapes',
   'Paper Studies',
 ];
+
+export const CATEGORY_LABELS: Record<Locale, Record<'All' | ArtworkCategory, string>> = {
+  tr: {
+    All: 'Tümü',
+    'Oil on Canvas': 'Tuval Üzerine Yağlıboya',
+    'Abstract Expressionism': 'Soyut Dışavurumculuk',
+    'Earth & Mineral': 'Toprak & Mineral',
+    'Atmospheric Landscapes': 'Atmosferik Manzaralar',
+    'Paper Studies': 'Kâğıt Etütleri',
+  },
+  en: {
+    All: 'All',
+    'Oil on Canvas': 'Oil on Canvas',
+    'Abstract Expressionism': 'Abstract Expressionism',
+    'Earth & Mineral': 'Earth & Mineral',
+    'Atmospheric Landscapes': 'Atmospheric Landscapes',
+    'Paper Studies': 'Paper Studies',
+  },
+};
+
+export function getCategoryLabel(category: 'All' | ArtworkCategory, locale: Locale): string {
+  return CATEGORY_LABELS[locale][category] ?? category;
+}
 
 export const ARTWORKS: Artwork[] = [
   {
@@ -51,6 +87,16 @@ export const ARTWORKS: Artwork[] = [
     featured: true,
     priceNote: 'Price on request',
     orientation: 'portrait',
+    tr: {
+      title: 'Toprak Sarısında Yalnızlık No. 4',
+      medium: 'Belçika keteni üzerine ham Fas okru, soğuk balmumu ve ceviz yağı',
+      dimensions: '160 × 120 cm',
+      description:
+        'Toprak pigmenti ve mekânsal dinginlik üzerine anıtsal bir çalışma. Tuval, elde perdahlanmış on iki kat kireçtaşı astar üzerine doğal Fas okru ve sıcak sienna katmanlarıyla inşa edilmiştir.',
+      story:
+        'Yüzyıllar boyunca rüzgâr ve güneşe karşı aşınmış antik taş terasları gözlemleyerek bir sonbahar misafir sanatçı programı sırasında kurgulandı.',
+      priceNote: 'Fiyat bilgisi için iletişime geçin',
+    },
   },
   {
     id: 'art-02',
@@ -69,6 +115,16 @@ export const ARTWORKS: Artwork[] = [
     featured: true,
     priceNote: 'Price on request',
     orientation: 'landscape',
+    tr: {
+      title: 'Şafakta Geçici Işık',
+      medium: 'Ham tuval üzerine yağlıboya, mermer tozu ve tavşan derisi tutkalı',
+      dimensions: '180 × 140 cm',
+      description:
+        'Yumuşak ve ışıltılı yatay katmanlar, durgun sular üzerindeki sabah sisinin sessiz dinginliğini çağrıştırır. Mineral beyazlar zarif toprak tonlarına ve ham keten dokusuna karışır.',
+      story:
+        'Gün doğumundan hemen önceki, renklerin henüz tam ayrışmadığı ancak atmosferik bir sıcaklık olarak hissedildiği o 15 dakikalık eşiği araştırır.',
+      priceNote: 'Fiyat bilgisi için iletişime geçin',
+    },
   },
   {
     id: 'art-03',
@@ -87,6 +143,16 @@ export const ARTWORKS: Artwork[] = [
     featured: true,
     priceNote: 'Reserved for institutional exhibition',
     orientation: 'square',
+    tr: {
+      title: 'Sessizlikle Diyalog',
+      medium: 'Elde gerilmiş keten üzerine füzen, kemik siyahı ve titanyum yağlıboya',
+      dimensions: '150 × 150 cm',
+      description:
+        'Dışavurumcu fırça darbeleri yapılandırılmış negatif alanla buluşur. Ölçülülük, sessizlik ve iz bırakmanın gücü üzerine bir meditasyon.',
+      story:
+        'Klasik Japon sumi-e mürekkep geleneğinin yoğun yağlıboya ve soğuk balmumu tekniklerine uyarlanmasından ilham almıştır.',
+      priceNote: 'Kurumsal sergi için ayrılmıştır',
+    },
   },
   {
     id: 'art-04',
@@ -105,6 +171,16 @@ export const ARTWORKS: Artwork[] = [
     featured: true,
     priceNote: 'Price on request',
     orientation: 'portrait',
+    tr: {
+      title: 'Terakota Eşik',
+      medium: 'Astarsız tuval üzerine terakota astarı, kuru pigment ve damar verniği',
+      dimensions: '130 × 100 cm',
+      description:
+        'Organik spatül impastosu ile yumuşatılmış sıcak mimari geometri. Yüzey, Ege killerinin ham ve dokunsal taneciklerini korur.',
+      story:
+        'Akdeniz kıyılarındaki kazılarda ortaya çıkan sıcak terakota karoları ve antik seramik parçalarını yansıtır.',
+      priceNote: 'Fiyat bilgisi için iletişime geçin',
+    },
   },
   {
     id: 'art-05',
@@ -123,6 +199,16 @@ export const ARTWORKS: Artwork[] = [
     featured: false,
     priceNote: 'Private Collection, Geneva',
     orientation: 'portrait',
+    tr: {
+      title: 'Kireçtaşı Yankısı',
+      medium: 'Ahşap panel üzerine ezilmiş traverten, soğuk balmumu ve kemik beyazı',
+      dimensions: '110 × 90 cm',
+      description:
+        'Gün boyunca yatay doğal ışığı yakalayan mikro çatlaklar ve dokulu yarıklara sahip monokrom rölyef.',
+      story:
+        'Kalsifiye travertenlerde ve antik su yollarında kayıtlı jeolojik zamana dokunsal bir saygı duruşu.',
+      priceNote: 'Özel Koleksiyon, Cenevre',
+    },
   },
   {
     id: 'art-06',
@@ -141,6 +227,16 @@ export const ARTWORKS: Artwork[] = [
     featured: true,
     priceNote: 'Price on request',
     orientation: 'landscape',
+    tr: {
+      title: 'İndigo ve Toprak Tonlarında Noktürn',
+      medium: 'Belçika keteni üzerine lapis lazuli pigmenti, ham umber ve ceviz yağı',
+      dimensions: '170 × 130 cm',
+      description:
+        'Derin, kadifemsi maviler toprak ve grafit derinliklerine karışır. Eser, sıcak iç mekân aydınlatması ile doğal pencere ışığı arasında dramatik bir dönüşüm sergiler.',
+      story:
+        'Haliç üzerindeki yağmur sesini dinleyerek stüdyoda üç hafta süren gece çalışmaları sırasında resmedildi.',
+      priceNote: 'Fiyat bilgisi için iletişime geçin',
+    },
   },
   {
     id: 'art-07',
@@ -159,6 +255,16 @@ export const ARTWORKS: Artwork[] = [
     featured: false,
     priceNote: 'Price on request (includes custom frame)',
     orientation: 'portrait',
+    tr: {
+      title: 'Keten Etüdü II',
+      medium: '300 g/m² el yapımı kâğıt üzerine ceviz mürekkebi ve mineral yıkama',
+      dimensions: '76 × 56 cm',
+      description:
+        'Doğal yırtma kenarlı el yapımı kâğıt üzerine samimi ve spontane fırça etüdü. Beyaz dişbudak çerçeve ve müze camı içinde yüzer şekilde çerçevelenmiştir.',
+      story:
+        'Londra’daki 2026 anıtsal galeri serisine hazırlık sürecinde üretilen araştırmacı bir ön çalışma.',
+      priceNote: 'Fiyat bilgisi için iletişime geçin (özel çerçeve dahildir)',
+    },
   },
   {
     id: 'art-08',
@@ -177,6 +283,16 @@ export const ARTWORKS: Artwork[] = [
     featured: false,
     priceNote: 'Private Collection, London',
     orientation: 'portrait',
+    tr: {
+      title: 'Taşın Hafızası',
+      medium: 'Kalın tuval üzerine grafit tozu, tebeşir ve yağlıboya çubuk',
+      dimensions: '140 × 110 cm',
+      description:
+        'Kemik beyazı ve arduvaz grisi alt katmanları ortaya çıkaran güçlü kazıma yüzeyler. Fiziksel maddeselliğin çarpıcı bir ifadesi.',
+      story:
+        'Aşınmış cephelerin yüzyılların izlerini taşıdığı antik monolitik taş mimarilerden ilham almıştır.',
+      priceNote: 'Özel Koleksiyon, Londra',
+    },
   },
   {
     id: 'art-09',
@@ -195,6 +311,16 @@ export const ARTWORKS: Artwork[] = [
     featured: false,
     priceNote: 'Price on request',
     orientation: 'portrait',
+    tr: {
+      title: 'Botanik Fısıltı No. 7',
+      medium: 'Keten tuval üzerine sap yeşili, ham sienna ve soğuk balmumu',
+      dimensions: '120 × 90 cm',
+      description:
+        'Zarif organik formlar sıcak bej bir alan içinde belirir ve çözülür. Doğal döngülerin dingin ve şiirsel bir keşfi.',
+      story:
+        'Kuru tohum kozalarının kırağıya karşı heykelsi bir zarafet sergilediği kış bahçelerindeki yürüyüşlerin ardından üretildi.',
+      priceNote: 'Fiyat bilgisi için iletişime geçin',
+    },
   },
   {
     id: 'art-10',
@@ -213,6 +339,16 @@ export const ARTWORKS: Artwork[] = [
     featured: true,
     priceNote: 'Price on request',
     orientation: 'portrait',
+    tr: {
+      title: 'Simyasal Palet No. 1',
+      medium: 'Belçika keteni üzerine saf kadmiyum, kobalt yıkama ve ceviz yağı',
+      dimensions: '135 × 105 cm',
+      description:
+        'Geniş keten boşluklarla dengelenen canlı kromatik vurgular. Spatül impasto katmanları yarı saydam glazürlerle kontrast oluşturur.',
+      story:
+        'Ham mineral tozlarının elde karıştırılan ceviz yağlarıyla ışıltılı renk düzlemlerine dönüşümünü inceler.',
+      priceNote: 'Fiyat bilgisi için iletişime geçin',
+    },
   },
   {
     id: 'art-11',
@@ -231,6 +367,16 @@ export const ARTWORKS: Artwork[] = [
     featured: false,
     priceNote: 'Price on request',
     orientation: 'landscape',
+    tr: {
+      title: 'Gök Mavisi ve Tebeşir Rezonansı',
+      medium: 'Kenevir tuval üzerine ultramarin pigmenti, ham sıva ve balmumu',
+      dimensions: '160 × 130 cm',
+      description:
+        'Dokunsal tebeşir tozuyla etkileşime giren geniş gök mavisi ufuklar. Akdeniz kıyı ufuklarına bir saygı duruşu.',
+      story:
+        'Gökyüzü ile suyun tek bir ışıltılı düzlemde eridiği Ege Denizi’ne bakan yaz öğleden sonralarını anımsatır.',
+      priceNote: 'Fiyat bilgisi için iletişime geçin',
+    },
   },
   {
     id: 'art-12',
@@ -249,8 +395,33 @@ export const ARTWORKS: Artwork[] = [
     featured: false,
     priceNote: 'Price on request (includes custom frame)',
     orientation: 'portrait',
+    tr: {
+      title: 'Toprak Tonlarında Stüdyo Meditasyonu',
+      medium: '300 g/m² pamuklu kâğıt üzerine yanık umber, arap zamkı ve mineral yıkama',
+      dimensions: '80 × 60 cm',
+      description:
+        'Kalın krem rengi el yapımı kâğıt üzerinde süzülen lirik kaligrafik izler. Yansıma yapmayan UV korumalı müze camı ile çerçevelenmiştir.',
+      story:
+        'Şehir sesleri başlamadan önce sabahın erken saatlerindeki sessizlikte, saf bir sezgiyle resmedildi.',
+      priceNote: 'Fiyat bilgisi için iletişime geçin (özel çerçeve dahildir)',
+    },
   },
 ];
+
+export function getLocalizedArtwork(artwork: Artwork, locale: Locale): Artwork {
+  if (locale === 'tr' && artwork.tr) {
+    return {
+      ...artwork,
+      title: artwork.tr.title,
+      medium: artwork.tr.medium,
+      dimensions: artwork.tr.dimensions ?? artwork.dimensions,
+      description: artwork.tr.description,
+      story: artwork.tr.story ?? artwork.story,
+      priceNote: artwork.tr.priceNote ?? artwork.priceNote,
+    };
+  }
+  return artwork;
+}
 
 export function getArtworkBySlug(slug: string): Artwork | undefined {
   return ARTWORKS.find((artwork) => artwork.slug === slug);

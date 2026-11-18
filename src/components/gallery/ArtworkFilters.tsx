@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ARTWORK_CATEGORIES, ArtworkCategory } from '@/data/artworks';
+import { ARTWORK_CATEGORIES, ArtworkCategory, getCategoryLabel } from '@/data/artworks';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 interface ArtworkFiltersProps {
   activeCategory: 'All' | ArtworkCategory;
@@ -19,6 +20,8 @@ export function ArtworkFilters({
   onToggleStatusFilter,
   count,
 }: ArtworkFiltersProps) {
+  const { locale, t } = useLanguage();
+
   return (
     <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-8 border-b border-[#E8E2D9]">
       {/* Category Filter Pills with layoutId spring indicator */}
@@ -40,7 +43,7 @@ export function ArtworkFilters({
                   transition={{ type: 'spring', stiffness: 450, damping: 32 }}
                 />
               )}
-              <span className="relative z-10">{category}</span>
+              <span className="relative z-10">{getCategoryLabel(category, locale)}</span>
             </button>
           );
         })}
@@ -63,14 +66,13 @@ export function ArtworkFilters({
               activeStatusFilter === 'available' ? 'bg-canvas' : 'bg-olive'
             }`}
           />
-          <span>Available Only</span>
+          <span>{t.gallery.availableOnly}</span>
         </button>
 
         <span className="text-xs text-charcoal-muted font-sans font-light">
-          Showing <span className="font-medium text-charcoal">{count}</span> {count === 1 ? 'artwork' : 'artworks'}
+          {t.gallery.showingCount(count)}
         </span>
       </div>
     </div>
   );
 }
-
