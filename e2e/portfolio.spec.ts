@@ -74,15 +74,12 @@ test.describe('Kezban Tanli — Fine Art Portfolio E2E Tests', () => {
     await expect(subjectInput).toHaveValue('Acquisition Inquiry: "Solitude in Ochre No. 4"');
   });
 
-  test('About Page renders biography, philosophy, and exhibitions', async ({ page }) => {
+  test('About Page renders artist biography and studio contact CTA', async ({ page }) => {
     await page.goto('/about');
 
     await expect(page.getByRole('heading', { name: /Giving weight and breath to the unspoken memory/i })).toBeVisible();
-    await expect(page.getByText(/Material Honesty & Raw Earth/i)).toBeVisible();
-    await expect(page.getByText(/Selected Exhibitions & Fairs/i)).toBeVisible();
-
-    // Check exhibition entry
-    await expect(page.getByText('Resonance of Silence & Stone')).toBeVisible();
+    await expect(page.getByText(/Biography & Artistic Identity/i)).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Interested in Studio Visits or Acquisitions\?/i })).toBeVisible();
   });
 
   test('Contact Page validates form fields client-side', async ({ page }) => {
