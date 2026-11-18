@@ -575,3 +575,4 @@ export const TRANSLATIONS = {
 } as const;
 
 export type TranslationDictionary = (typeof TRANSLATIONS)[Locale];
+

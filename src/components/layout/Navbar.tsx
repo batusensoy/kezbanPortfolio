@@ -48,11 +48,11 @@ export function Navbar() {
     };
   }, [isOpen]);
 
-  const renderLanguageSwitcher = (variant: 'desktop' | 'mobile') => (
+  const renderLanguageSwitcher = (variant: 'desktop' | 'mobile' | 'drawer') => (
     <div
       role="group"
       aria-label={t.nav.languageSwitcherLabel}
-      className="inline-flex items-center rounded-full border border-[#E3DDD5] bg-canvas-subtle/80 p-0.5 text-xs font-medium tracking-wider"
+      className="inline-flex items-center space-x-1.5 text-xs tracking-[0.14em] uppercase select-none"
       data-testid={`language-switcher-${variant}`}
     >
       <button
@@ -60,26 +60,45 @@ export function Navbar() {
         onClick={() => setLocale('tr')}
         aria-pressed={locale === 'tr'}
         data-testid={`lang-tr-${variant}`}
-        className={`px-2.5 py-1 rounded-full transition-colors ${
+        className={`relative px-1 py-1 transition-colors duration-200 focus:outline-none ${
           locale === 'tr'
-            ? 'bg-charcoal text-canvas shadow-sm'
-            : 'text-charcoal-muted hover:text-charcoal'
+            ? 'text-charcoal font-semibold'
+            : 'text-charcoal-muted/65 hover:text-charcoal font-normal'
         }`}
       >
-        TR
+        <span>TR</span>
+        {locale === 'tr' && (
+          <motion.span
+            layoutId={`langUnderline-${variant}`}
+            className="absolute bottom-0 left-1 right-1 h-[1.5px] bg-terracotta"
+            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+          />
+        )}
       </button>
+
+      <span className="text-charcoal-muted/35 font-light" aria-hidden="true">
+        /
+      </span>
+
       <button
         type="button"
         onClick={() => setLocale('en')}
         aria-pressed={locale === 'en'}
         data-testid={`lang-en-${variant}`}
-        className={`px-2.5 py-1 rounded-full transition-colors ${
+        className={`relative px-1 py-1 transition-colors duration-200 focus:outline-none ${
           locale === 'en'
-            ? 'bg-charcoal text-canvas shadow-sm'
-            : 'text-charcoal-muted hover:text-charcoal'
+            ? 'text-charcoal font-semibold'
+            : 'text-charcoal-muted/65 hover:text-charcoal font-normal'
         }`}
       >
-        EN
+        <span>EN</span>
+        {locale === 'en' && (
+          <motion.span
+            layoutId={`langUnderline-${variant}`}
+            className="absolute bottom-0 left-1 right-1 h-[1.5px] bg-terracotta"
+            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+          />
+        )}
       </button>
     </div>
   );
@@ -136,7 +155,7 @@ export function Navbar() {
           </nav>
 
           {/* Desktop Right: Language Switcher & CTA */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-6">
             {renderLanguageSwitcher('desktop')}
 
             <Link
@@ -149,7 +168,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile Controls: Language Switcher & Menu Toggle Button */}
-          <div className="flex md:hidden items-center space-x-2">
+          <div className="flex md:hidden items-center space-x-3">
             {renderLanguageSwitcher('mobile')}
 
             <button
@@ -190,13 +209,16 @@ export function Navbar() {
                   <span className="font-serif text-lg tracking-[0.1em] font-medium text-charcoal uppercase">
                     {artist.name}
                   </span>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="p-2 text-charcoal-muted hover:text-charcoal"
-                    aria-label={t.nav.closeMenu}
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
+                  <div className="flex items-center space-x-3">
+                    {renderLanguageSwitcher('drawer')}
+                    <button
+                      onClick={() => setIsOpen(false)}
+                      className="p-2 text-charcoal-muted hover:text-charcoal"
+                      aria-label={t.nav.closeMenu}
+                    >
+                      <X className="w-6 h-6" />
+                    </button>
+                  </div>
                 </div>
 
                 {/* Mobile Links */}
