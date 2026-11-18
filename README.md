@@ -1,6 +1,6 @@
-# Kezban Tanli — Fine Art Portfolio & Studio
+# Kezban Tanlı — Fine Art Portfolio & Studio
 
-A bespoke, editorial, modern website for contemporary fine artist and visual painter **Kezban Tanli**. Engineered with Next.js (App Router), TypeScript, Tailwind CSS, and Framer Motion.
+A bespoke, editorial, modern website for contemporary fine artist and visual painter **Kezban Tanlı**. Engineered with Next.js (App Router), TypeScript, Tailwind CSS, and Framer Motion.
 
 ---
 

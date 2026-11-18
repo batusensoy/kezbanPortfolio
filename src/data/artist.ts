@@ -38,12 +38,12 @@ export interface ArtistProfile {
 }
 
 export const ARTIST_EN: ArtistProfile = {
-  name: 'Kezban Tanli',
+  name: 'Kezban Tanlı',
   title: 'Contemporary Visual Artist & Painter',
   pronouns: 'she/her',
   location: 'Istanbul & London',
   shortBio:
-    'Kezban Tanli is an established visual artist whose practice bridges raw mineral matter, evocative color fields, and meditative stillness. Working primarily with natural earth pigments, cold beeswax, and Belgian linen, her paintings capture the tactile erosion of landscape and the quiet architecture of light.',
+    'Kezban Tanlı is an established visual artist whose practice bridges raw mineral matter, evocative color fields, and meditative stillness. Working primarily with natural earth pigments, cold beeswax, and Belgian linen, her paintings capture the tactile erosion of landscape and the quiet architecture of light.',
   artisticStatement:
     'My paintings are constructed as living surfaces—monuments to patience and sensory presence. By layering hand-ground raw ochres, limestone washes, and translucent oils, I seek to reveal the quiet dialogue between geological time and human vulnerability. Every canvas is an invitation to pause and breathe in the space between form and silence.',
   philosophy: [
@@ -147,7 +147,7 @@ export const ARTIST_TR: ArtistProfile = {
   title: 'Çağdaş Görsel Sanatçı & Ressam',
   location: 'İstanbul & Londra',
   shortBio:
-    'Kezban Tanli; ham mineral dokuları, derinlikli renk alanlarını ve dingin bir tefekkürü bir araya getiren çağdaş bir görsel sanatçıdır. Doğal toprak pigmentleri, soğuk balmumu ve Belçika keteni ile ürettiği tablolarında doğanın dokunsal izlerini ve ışığın sessiz mimarisini tuvale taşır.',
+    'Kezban Tanlı; ham mineral dokuları, derinlikli renk alanlarını ve dingin bir tefekkürü bir araya getiren çağdaş bir görsel sanatçıdır. Doğal toprak pigmentleri, soğuk balmumu ve Belçika keteni ile ürettiği tablolarında doğanın dokunsal izlerini ve ışığın sessiz mimarisini tuvale taşır.',
   artisticStatement:
     'Tablolarım yaşayan yüzeyler olarak inşa edilir; sabrın ve duyusal farkındalığın anıtlarıdır. Elde öğütülmüş ham toprak boyalarını, kireçtaşı yıkamalarını ve yarı saydam yağlıboyaları katmanlandırarak jeolojik zaman ile insan duyarlılığı arasındaki sessiz diyaloğu görünür kılmayı amaçlıyorum. Her tuval, biçim ile sessizlik arasındaki boşlukta durup nefes almaya bir davettir.',
   contact: {

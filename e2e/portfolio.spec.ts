@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Kezban Tanli — Bilingual (TR / EN) Fine Art Portfolio E2E Tests', () => {
+test.describe('Kezban Tanlı — Bilingual (TR / EN) Fine Art Portfolio E2E Tests', () => {
   test('Browser language detection: defaults to Turkish for non-EN/TR browsers, detects EN, and remembers manual switch', async ({
     browser,
   }) => {
@@ -42,7 +42,7 @@ test.describe('Kezban Tanli — Bilingual (TR / EN) Fine Art Portfolio E2E Tests
 
     // Switch to Turkish (TR) and verify Turkish homepage content
     await page.locator('[data-testid^="lang-tr-"]:visible').first().click();
-    await expect(page.getByText('KEZBAN TANLI').first()).toBeVisible();
+    await expect(page.getByText('Kezban Tanlı').first()).toBeVisible();
     await expect(page.getByRole('heading', { name: /Belçika keteni üzerinde dokunsal sessizlik/i })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Toprak Sarısında Yalnızlık No. 4' }).first()).toBeVisible();
 
@@ -133,7 +133,7 @@ test.describe('Kezban Tanli — Bilingual (TR / EN) Fine Art Portfolio E2E Tests
 
     // Turkish validation
     await page.locator('[data-testid^="lang-tr-"]:visible').first().click();
-    await expect(page.getByRole('heading', { name: /Kezban Tanli ile İletişime Geçin/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Kezban Tanlı ile İletişime Geçin/i })).toBeVisible();
     await page.getByRole('button', { name: /Mesajı Göndermek İçin E-postayı Aç/i }).click();
     await expect(page.getByText('Ad ve soyad alanı zorunludur')).toBeVisible();
     await expect(page.getByText('E-posta adresi zorunludur')).toBeVisible();
@@ -141,7 +141,7 @@ test.describe('Kezban Tanli — Bilingual (TR / EN) Fine Art Portfolio E2E Tests
     // Switch to English and validate
     await page.locator('[data-testid^="lang-en-"]:visible').first().click();
     await expect(page).toHaveURL(/.*\/contact/);
-    await expect(page.getByRole('heading', { name: /Connect with Kezban Tanli/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Connect with Kezban Tanlı/i })).toBeVisible();
     await page.getByRole('button', { name: /Open Email to Send Inquiry/i }).click();
     await expect(page.getByText('Full name is required')).toBeVisible();
     await expect(page.getByText('Email address is required')).toBeVisible();

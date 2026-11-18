@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   },
   description: `${ARTIST.name} is a contemporary fine artist working in Istanbul & London, specializing in large-scale oil on Belgian linen, mineral pigments, and textural abstraction. Explore original paintings and commission bespoke artwork.`,
   keywords: [
-    'Kezban Tanli',
     'Kezban Tanlı',
     'Contemporary Fine Artist',
     'Oil on Linen',
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
     siteName: `${ARTIST.name} Studio`,
     title: `${ARTIST.name} — Contemporary Visual Artist & Painter`,
     description:
-      'Original contemporary paintings, atmospheric landscapes, and textural earth abstractions by Kezban Tanli.',
+      'Original contemporary paintings, atmospheric landscapes, and textural earth abstractions by Kezban Tanlı.',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=85',
