@@ -28,7 +28,7 @@ export default function TeachingPage() {
   const artist = getArtist(locale);
   const offerings = getTeachingOfferings(locale);
   const arrangements = getTeachingArrangements(locale);
-  const teachingArtwork = getLocalizedArtwork(ARTWORKS[4], locale);
+  const teachingArtwork = getLocalizedArtwork(ARTWORKS[2], locale);
 
   return (
     <div className="py-12 sm:py-20 bg-canvas min-h-screen">
