@@ -22,20 +22,20 @@ export function ArtworkCard({ artwork: rawArtwork, priority = false, onOpenLight
     switch (status) {
       case 'Available':
         return (
-          <span className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-medium bg-canvas/90 backdrop-blur-sm text-charcoal border border-[#E8E2D9]">
+          <span className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-medium bg-canvas/95 backdrop-blur-sm text-charcoal border border-[#E8E2D9] shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-olive animate-pulse" />
             <span>{t.gallery.status.Available}</span>
           </span>
         );
       case 'Sold':
         return (
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-medium bg-charcoal/80 backdrop-blur-sm text-canvas">
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-medium bg-charcoal/85 backdrop-blur-sm text-canvas shadow-sm">
             {t.gallery.status.Sold}
           </span>
         );
       case 'Reserved':
         return (
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-medium bg-ochre/20 backdrop-blur-sm text-charcoal border border-ochre/40">
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-medium bg-ochre/20 backdrop-blur-sm text-charcoal border border-ochre/40 shadow-sm">
             {t.gallery.status.Reserved}
           </span>
         );
@@ -54,30 +54,21 @@ export function ArtworkCard({ artwork: rawArtwork, priority = false, onOpenLight
     >
       <Link
         href={`/gallery/${artwork.slug}`}
-        className="block relative overflow-hidden rounded-lg bg-[#EFE9E2] border border-[#E8E2D9] shadow-gallery-sm group-hover:shadow-gallery-md transition-all duration-500"
+        className="block relative overflow-hidden rounded-xl bg-[#F4EFEB] border border-[#E8E2D9] shadow-gallery-sm group-hover:shadow-gallery-md transition-all duration-500"
         aria-label={artwork.title}
       >
-        {/* Aspect ratio container based on orientation */}
-        <div
-          className={`relative w-full ${
-            artwork.orientation === 'landscape'
-              ? 'aspect-[4/3]'
-              : artwork.orientation === 'square'
-              ? 'aspect-square'
-              : 'aspect-[3/4]'
-          }`}
-        >
-          <Image
-            src={artwork.image}
-            alt={artwork.title}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            priority={priority}
-            className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-          />
-
-          {/* Subtle canvas frame highlight overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+        {/* Uniform archival museum mat container so portrait, landscape, and square artworks coexist harmoniously without cropping */}
+        <div className="relative w-full aspect-[4/5] p-4 sm:p-6 flex items-center justify-center">
+          <div className="relative w-full h-full">
+            <Image
+              src={artwork.image}
+              alt={artwork.title}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              priority={priority}
+              className="object-contain object-center transition-transform duration-700 ease-out group-hover:scale-[1.02] drop-shadow-sm"
+            />
+          </div>
 
           {/* Status badge in top right */}
           <div className="absolute top-3.5 right-3.5 z-10">
@@ -94,7 +85,7 @@ export function ArtworkCard({ artwork: rawArtwork, priority = false, onOpenLight
                   e.stopPropagation();
                   onOpenLightbox();
                 }}
-                className="w-9 h-9 rounded-full bg-canvas/90 backdrop-blur-sm text-charcoal hover:bg-charcoal hover:text-canvas flex items-center justify-center transition-colors shadow-sm"
+                className="w-9 h-9 rounded-full bg-canvas/95 backdrop-blur-sm text-charcoal hover:bg-charcoal hover:text-canvas border border-[#E8E2D9] flex items-center justify-center transition-colors shadow-sm"
                 aria-label={t.gallery.lightbox.expandAria(artwork.title)}
                 title={t.gallery.lightbox.expandTitle}
               >
@@ -102,7 +93,7 @@ export function ArtworkCard({ artwork: rawArtwork, priority = false, onOpenLight
               </button>
             )}
 
-            <div className="w-9 h-9 rounded-full bg-canvas/90 backdrop-blur-sm text-charcoal flex items-center justify-center shadow-sm">
+            <div className="w-9 h-9 rounded-full bg-canvas/95 backdrop-blur-sm text-charcoal border border-[#E8E2D9] flex items-center justify-center shadow-sm">
               <ArrowUpRight className="w-4 h-4 text-charcoal" />
             </div>
           </div>

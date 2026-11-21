@@ -5,26 +5,29 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowUpRight, Palette, Layers, Sparkles } from 'lucide-react';
 import { getArtist } from '@/data/artist';
+import { ARTWORKS, getLocalizedArtwork } from '@/data/artworks';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 export function AboutPreview() {
   const { locale, t } = useLanguage();
   const artist = getArtist(locale);
+  const previewArtwork = getLocalizedArtwork(ARTWORKS[1], locale);
 
   return (
     <section className="py-20 sm:py-28 bg-[#F4EFEB] border-y border-[#E8E2D9]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column: Editorial Portrait / Studio Atmosphere (5 cols) */}
+          {/* Left Column: Featured Original Painting Showcase (5 cols) */}
           <div className="lg:col-span-5 order-2 lg:order-1 relative">
             <div className="relative p-3 sm:p-4 bg-canvas rounded-2xl border border-[#E3DDD5] shadow-gallery-md">
-              <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-[#EDE6DF]">
+              <div className="relative w-full overflow-hidden rounded-xl bg-[#F4EFEB] p-2 sm:p-3 flex items-center justify-center">
                 <Image
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=85"
-                  alt={`${artist.name} in studio`}
-                  fill
+                  src={previewArtwork.image}
+                  alt={previewArtwork.title}
+                  width={previewArtwork.width}
+                  height={previewArtwork.height}
                   sizes="(max-width: 1024px) 100vw, 42vw"
-                  className="object-cover object-center filter grayscale contrast-[1.05] hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-auto max-h-[540px] object-contain rounded-lg drop-shadow-sm"
                 />
               </div>
 

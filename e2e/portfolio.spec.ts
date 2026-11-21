@@ -35,7 +35,7 @@ test.describe('Kezban Tanlı — Bilingual (TR / EN) Fine Art Portfolio E2E Test
     await enContext.close();
   });
 
-  test('Home Page renders in both Turkish and English and supports in-place language switching', async ({
+  test('Home Page renders in both Turkish and English with original artwork and supports in-place language switching', async ({
     page,
   }) => {
     await page.goto('/');
@@ -44,12 +44,12 @@ test.describe('Kezban Tanlı — Bilingual (TR / EN) Fine Art Portfolio E2E Test
     await page.locator('[data-testid^="lang-tr-"]:visible').first().click();
     await expect(page.getByText('Kezban Tanlı').first()).toBeVisible();
     await expect(page.getByRole('heading', { name: /Belçika keteni üzerinde dokunsal sessizlik/i })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Toprak Sarısında Yalnızlık No. 4' }).first()).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Orijinal Eser 01' }).first()).toBeVisible();
 
     // Switch to English (EN) and verify English homepage content
     await page.locator('[data-testid^="lang-en-"]:visible').first().click();
     await expect(page.getByRole('heading', { name: /Tactile silence & geological memory/i })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Solitude in Ochre No. 4' }).first()).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Original Artwork 01' }).first()).toBeVisible();
 
     const exploreCta = page.getByRole('link', { name: 'Explore Artwork' });
     await expect(exploreCta).toBeVisible();
@@ -57,7 +57,7 @@ test.describe('Kezban Tanlı — Bilingual (TR / EN) Fine Art Portfolio E2E Test
     await expect(page).toHaveURL(/.*\/gallery/);
   });
 
-  test('Gallery Page displays full artwork collection directly and supports in-place TR/EN switching', async ({
+  test('Gallery Page displays full original artwork collection directly and supports in-place TR/EN switching', async ({
     page,
   }) => {
     await page.goto('/gallery');
@@ -65,41 +65,41 @@ test.describe('Kezban Tanlı — Bilingual (TR / EN) Fine Art Portfolio E2E Test
     // Test in Turkish (TR)
     await page.locator('[data-testid^="lang-tr-"]:visible').first().click();
     await expect(page.getByRole('heading', { name: 'Sergi Kataloğu & Arşiv' })).toBeVisible();
-    await expect(page.getByText('Toprak Sarısında Yalnızlık No. 4')).toBeVisible();
-    await expect(page.getByText('Toprak Tonlarında Stüdyo Meditasyonu')).toBeVisible();
+    await expect(page.getByText('Orijinal Eser 01')).toBeVisible();
+    await expect(page.getByText('Orijinal Eser 14')).toBeVisible();
 
     // Switch to English while on /gallery -> stays on /gallery and translates artworks in-place
     await page.locator('[data-testid^="lang-en-"]:visible').first().click();
     await expect(page).toHaveURL(/.*\/gallery/);
     await expect(page.getByRole('heading', { name: 'Exhibition Catalog & Archive' })).toBeVisible();
-    await expect(page.getByText('Solitude in Ochre No. 4')).toBeVisible();
-    await expect(page.getByText('Studio Meditation in Umber')).toBeVisible();
+    await expect(page.getByText('Original Artwork 01')).toBeVisible();
+    await expect(page.getByText('Original Artwork 14')).toBeVisible();
   });
 
   test('Artwork Detail View displays full specs in TR and EN without redirecting on language switch', async ({
     page,
   }) => {
-    await page.goto('/gallery/solitude-in-ochre');
+    await page.goto('/gallery/artwork-01');
 
     // Turkish view
     await page.locator('[data-testid^="lang-tr-"]:visible').first().click();
-    await expect(page).toHaveURL(/.*\/gallery\/solitude-in-ochre/);
-    await expect(page.getByRole('heading', { name: 'Toprak Sarısında Yalnızlık No. 4' })).toBeVisible();
-    await expect(page.getByText('Belçika keteni üzerine ham Fas okru, soğuk balmumu ve ceviz yağı')).toBeVisible();
+    await expect(page).toHaveURL(/.*\/gallery\/artwork-01/);
+    await expect(page.getByRole('heading', { name: 'Orijinal Eser 01' })).toBeVisible();
+    await expect(page.getByText('Teknik ve malzeme bilgisi eklenecek').first()).toBeVisible();
 
     // Switch to English in-place on the detail page
     await page.locator('[data-testid^="lang-en-"]:visible').first().click();
-    await expect(page).toHaveURL(/.*\/gallery\/solitude-in-ochre/);
-    await expect(page.getByRole('heading', { name: 'Solitude in Ochre No. 4' })).toBeVisible();
-    await expect(page.getByText('Raw Moroccan ochre, cold wax, and walnut oil on Belgian linen')).toBeVisible();
+    await expect(page).toHaveURL(/.*\/gallery\/artwork-01/);
+    await expect(page.getByRole('heading', { name: 'Original Artwork 01' })).toBeVisible();
+    await expect(page.getByText('Medium & surface details to be added').first()).toBeVisible();
 
     // Inquiry CTA
     const inquireLink = page.getByRole('link', { name: 'Enquire About This Painting' });
     await inquireLink.click();
-    await expect(page).toHaveURL(/.*\/contact\?artwork=Solitude%20in%20Ochre%20No\.%204/);
+    await expect(page).toHaveURL(/.*\/contact\?artwork=Original%20Artwork%2001/);
 
     const subjectInput = page.locator('input#subject');
-    await expect(subjectInput).toHaveValue('Acquisition Inquiry: "Solitude in Ochre No. 4"');
+    await expect(subjectInput).toHaveValue('Acquisition Inquiry: "Original Artwork 01"');
   });
 
   test('About Page renders artist biography and studio contact CTA in both TR and EN', async ({

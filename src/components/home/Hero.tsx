@@ -93,14 +93,15 @@ export function Hero() {
           >
             {/* Museum frame presentation */}
             <div className="relative p-3 sm:p-4 bg-canvas-elevated rounded-xl border border-[#E3DDD5] shadow-frame">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg bg-[#EDE6DF]">
+              <div className="relative w-full overflow-hidden rounded-lg bg-[#F4EFEB] p-2 sm:p-3 flex items-center justify-center">
                 <Image
                   src={heroArtwork.image}
                   alt={heroArtwork.title}
-                  fill
+                  width={heroArtwork.width}
+                  height={heroArtwork.height}
                   priority
                   sizes="(max-width: 1024px) 100vw, 42vw"
-                  className="object-cover object-center transition-transform duration-1000 hover:scale-[1.02]"
+                  className="w-full h-auto max-h-[600px] object-contain rounded transition-transform duration-1000 hover:scale-[1.01] drop-shadow-sm"
                 />
               </div>
 

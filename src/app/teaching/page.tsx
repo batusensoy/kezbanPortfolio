@@ -17,6 +17,7 @@ import {
   CalendarCheck,
 } from 'lucide-react';
 import { getArtist } from '@/data/artist';
+import { ARTWORKS, getLocalizedArtwork } from '@/data/artworks';
 import { getTeachingOfferings, getTeachingArrangements } from '@/data/teaching';
 import { useLanguage } from '@/i18n/LanguageContext';
 
@@ -27,6 +28,7 @@ export default function TeachingPage() {
   const artist = getArtist(locale);
   const offerings = getTeachingOfferings(locale);
   const arrangements = getTeachingArrangements(locale);
+  const teachingArtwork = getLocalizedArtwork(ARTWORKS[4], locale);
 
   return (
     <div className="py-12 sm:py-20 bg-canvas min-h-screen">
@@ -79,14 +81,15 @@ export default function TeachingPage() {
           {/* Right Column: Studio Teaching Atmosphere Image */}
           <div className="lg:col-span-5">
             <div className="relative p-3 sm:p-4 bg-canvas-elevated rounded-2xl border border-[#E3DDD5] shadow-frame">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-[#EDE6DF]">
+              <div className="relative w-full overflow-hidden rounded-xl bg-[#F4EFEB] p-2 sm:p-3 flex items-center justify-center">
                 <Image
-                  src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1000&q=85"
-                  alt={t.teaching.title}
-                  fill
+                  src={teachingArtwork.image}
+                  alt={teachingArtwork.title}
+                  width={teachingArtwork.width}
+                  height={teachingArtwork.height}
                   priority
                   sizes="(max-width: 1024px) 100vw, 42vw"
-                  className="object-cover object-center"
+                  className="w-full h-auto max-h-[560px] object-contain rounded-lg drop-shadow-sm"
                 />
               </div>
               <div className="mt-4 pt-3 border-t border-[#EDE6DF] flex items-center justify-between text-xs text-charcoal-muted font-light px-1">

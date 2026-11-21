@@ -67,22 +67,15 @@ export function ArtworkDetailContent({
           {/* Left Column: Artwork Image in Museum Frame (7 cols) */}
           <div className="lg:col-span-7">
             <div className="relative p-3 sm:p-5 bg-canvas-elevated rounded-2xl border border-[#E3DDD5] shadow-frame">
-              <div
-                className={`relative w-full overflow-hidden rounded-xl bg-[#EDE6DF] ${
-                  artwork.orientation === 'landscape'
-                    ? 'aspect-[16/11]'
-                    : artwork.orientation === 'square'
-                    ? 'aspect-square'
-                    : 'aspect-[3/4]'
-                }`}
-              >
+              <div className="relative w-full overflow-hidden rounded-xl bg-[#F4EFEB] p-3 sm:p-6 flex items-center justify-center">
                 <Image
                   src={artwork.image}
                   alt={artwork.title}
-                  fill
+                  width={artwork.width}
+                  height={artwork.height}
                   priority
                   sizes="(max-width: 1024px) 100vw, 55vw"
-                  className="object-cover object-center"
+                  className="w-full h-auto max-h-[78vh] object-contain rounded-lg drop-shadow-sm"
                 />
               </div>
 

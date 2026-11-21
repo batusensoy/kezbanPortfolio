@@ -36,9 +36,9 @@ export const metadata: Metadata = {
       'Original contemporary paintings, atmospheric landscapes, and textural earth abstractions by Kezban Tanlı.',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=85',
-        width: 1200,
-        height: 800,
+        url: '/images/artworks/artwork-01-portrait-in-blue.jpg',
+        width: 1028,
+        height: 1392,
         alt: `${ARTIST.name} — Fine Art Exhibition`,
       },
     ],

@@ -4,29 +4,32 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getArtist } from '@/data/artist';
+import { ARTWORKS, getLocalizedArtwork } from '@/data/artworks';
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 export default function AboutPage() {
   const { locale, t } = useLanguage();
   const artist = getArtist(locale);
+  const featuredPainting = getLocalizedArtwork(ARTWORKS[1], locale);
 
   return (
     <div className="py-12 sm:py-20 bg-canvas min-h-screen">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-16 sm:space-y-24">
         {/* Hero Editorial Profile Section */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column: Portrait in Museum Mat (5 cols) */}
+          {/* Left Column: Artwork in Museum Mat (5 cols) */}
           <div className="lg:col-span-5 relative">
             <div className="relative p-3 sm:p-4 bg-canvas-elevated rounded-2xl border border-[#E3DDD5] shadow-frame">
-              <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-[#EDE6DF]">
+              <div className="relative w-full overflow-hidden rounded-xl bg-[#F4EFEB] p-2 sm:p-3 flex items-center justify-center">
                 <Image
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85"
-                  alt={`${artist.name} portrait`}
-                  fill
+                  src={featuredPainting.image}
+                  alt={featuredPainting.title}
+                  width={featuredPainting.width}
+                  height={featuredPainting.height}
                   priority
                   sizes="(max-width: 1024px) 100vw, 42vw"
-                  className="object-cover object-center filter grayscale contrast-[1.05]"
+                  className="w-full h-auto max-h-[560px] object-contain rounded-lg drop-shadow-sm"
                 />
               </div>
               <div className="mt-4 pt-3 border-t border-[#EDE6DF] flex items-center justify-between text-xs text-charcoal-muted font-light px-1">

@@ -3,6 +3,9 @@ const isGithubPages = process.env.GITHUB_PAGES === 'true';
 
 const nextConfig = {
   reactStrictMode: true,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isGithubPages ? '/kezbanPortfolio' : '',
+  },
   ...(isGithubPages
     ? {
         output: 'export',
@@ -13,17 +16,6 @@ const nextConfig = {
     : {}),
   images: {
     unoptimized: isGithubPages,
-    domains: ['images.unsplash.com', 'plus.unsplash.com', 'picsum.photos'],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-      },
-    ],
   },
 };
 
