@@ -57,7 +57,7 @@ test.describe('Kezban Tanlı — Bilingual (TR / EN) Fine Art Portfolio E2E Test
     await expect(page).toHaveURL(/.*\/gallery/);
   });
 
-  test('Gallery Page supports category filtering, available toggle, and in-place TR/EN switching', async ({
+  test('Gallery Page displays full artwork collection directly and supports in-place TR/EN switching', async ({
     page,
   }) => {
     await page.goto('/gallery');
@@ -65,23 +65,15 @@ test.describe('Kezban Tanlı — Bilingual (TR / EN) Fine Art Portfolio E2E Test
     // Test in Turkish (TR)
     await page.locator('[data-testid^="lang-tr-"]:visible').first().click();
     await expect(page.getByRole('heading', { name: 'Sergi Kataloğu & Arşiv' })).toBeVisible();
-    await expect(page.getByText(/Toplam 12 eser gösteriliyor/i)).toBeVisible();
-    await page.getByRole('button', { name: 'Tuval Üzerine Yağlıboya' }).click();
-    await expect(page.getByText(/Toplam \d+ eser gösteriliyor/i)).toBeVisible();
+    await expect(page.getByText('Toprak Sarısında Yalnızlık No. 4')).toBeVisible();
+    await expect(page.getByText('Toprak Tonlarında Stüdyo Meditasyonu')).toBeVisible();
 
-    // Switch to English while on /gallery -> stays on /gallery and keeps active filter
+    // Switch to English while on /gallery -> stays on /gallery and translates artworks in-place
     await page.locator('[data-testid^="lang-en-"]:visible').first().click();
     await expect(page).toHaveURL(/.*\/gallery/);
     await expect(page.getByRole('heading', { name: 'Exhibition Catalog & Archive' })).toBeVisible();
-    await expect(page.getByText(/Showing \d+ artworks/i)).toBeVisible();
-
-    // Click 'All'
-    await page.getByRole('button', { name: 'All' }).click();
-    await expect(page.getByText(/Showing 12 artworks/i)).toBeVisible();
-
-    // Toggle 'Available Only'
-    await page.getByRole('button', { name: /Available Only/i }).click();
-    await expect(page.getByText(/Showing \d+ artworks/i)).toBeVisible();
+    await expect(page.getByText('Solitude in Ochre No. 4')).toBeVisible();
+    await expect(page.getByText('Studio Meditation in Umber')).toBeVisible();
   });
 
   test('Artwork Detail View displays full specs in TR and EN without redirecting on language switch', async ({

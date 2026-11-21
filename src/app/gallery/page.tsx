@@ -14,7 +14,7 @@ export default function GalleryPage() {
     <div className="py-12 sm:py-20 bg-canvas min-h-screen">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-12">
         {/* Gallery Page Header */}
-        <div className="max-w-3xl space-y-4">
+        <div className="max-w-3xl space-y-4 pb-8 border-b border-[#E8E2D9]">
           <span className="text-xs uppercase tracking-[0.25em] text-terracotta font-medium block">
             {t.gallery.eyebrow}
           </span>
@@ -26,7 +26,7 @@ export default function GalleryPage() {
           </p>
         </div>
 
-        {/* Gallery Grid & Filter Component */}
+        {/* Gallery Artwork Grid */}
         <ArtworkGrid />
 
         {/* Collector Assurance & Shipping Details */}
